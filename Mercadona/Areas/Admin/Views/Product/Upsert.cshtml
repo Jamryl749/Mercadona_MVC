@@ -14,7 +14,7 @@
             <input asp-for="Product.ImageUrl" hidden />
             <div class="border p-3 mt-4">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-sm-9">
                         <div class="mb-3 row p-1">
                             <label asp-for="Product.Name" class="p-0"></label>
                             <input asp-for="Product.Name" class="form-control" />
@@ -25,31 +25,31 @@
                             <textarea asp-for="Product.Desc" class="form-control"></textarea>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
                     </div>
                 </div>
                 <div class="mb-3 row p-1">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <label asp-for="Product.CategoryId" class="p-0"></label>
                         <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
                             <option disabled selected>--Select Category--</option>
                         </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.Price" class="p-0"></label>
                         <input asp-for="Product.Price" id="Price" onchange="DisableDiscountSelect()" class="form-control" />
                         <span asp-validation-for="Product.Price" class="text-danger"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.DiscountedPrice" class="p-0"></label>
                         <input readonly asp-for="@Model.Product.DiscountedPrice" id="DiscountedPrice" class="form-control" />
                         <span asp-validation-for="Product.DiscountedPrice" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mb-3 row p-1">
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.DiscountId" class="p-0"></label>
                         <select disabled asp-for="Product.DiscountId" asp-items="@Model.DiscountList" id="DiscountList" onchange="GetDiscountData()" class="form-select">
                             <option disabled selected>--Select Discount--</option>
@@ -57,17 +57,17 @@
                         </select>
                         <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.Discount.DiscountValue" class="p-0"></label>
                         <input disabled asp-for="Product.Discount.DiscountValue" id="DiscountValue" class="form-control" />
                         <span asp-validation-for="Product.Discount.DiscountValue" class="text-danger"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.Discount.StartDate" class="p-0"></label>
                         <input disabled type="date" asp-for="Product.Discount.StartDate" id="StartDate" class="form-control" />
                         <span asp-validation-for="Product.Discount.StartDate" class="text-danger"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-sm-3">
                         <label asp-for="Product.Discount.EndDate" class="p-0"></label>
                         <input disabled type="date" asp-for="Product.Discount.EndDate" id="EndDate" class="form-control" />
                         <span asp-validation-for="Product.Discount.EndDate" class="text-danger"></span>

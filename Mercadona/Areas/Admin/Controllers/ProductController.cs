@@ -1,6 +1,4 @@
-﻿using Mercadona.DataAccess.Data;
-using Mercadona.DataAccess.Repository;
-using Mercadona.DataAccess.Repository.IRepository;
+﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 using Mercadona.Models.ViewModels;
 using Mercadona.Utility;
@@ -24,7 +22,7 @@ namespace Mercadona.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll(includeCategories:"Category", includeDiscounts:"Discount").ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").ToList();
             return View(objProductList);
         }
         [HttpGet]
@@ -44,7 +42,7 @@ namespace Mercadona.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            if(id==null || id==0)
+            if (id == null || id == 0)
             {
                 //create
                 return View(productViewModel);
@@ -52,7 +50,7 @@ namespace Mercadona.Areas.Admin.Controllers
             else
             {
                 //update
-                productViewModel.Product = _unitOfWork.Product.Get(x=>x.Id==id);
+                productViewModel.Product = _unitOfWork.Product.Get(x => x.Id == id);
                 return View(productViewModel);
             }
         }
@@ -62,22 +60,22 @@ namespace Mercadona.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if(file!=null)
+                if (file != null)
                 {
                     string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"img\product");
 
-                    if(!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
                     {
                         //delete the old image
                         var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('\\'));
-                        if(System.IO.File.Exists(oldImagePath))
+                        if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
                         }
                     }
 
-                    using ( var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                    using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
                     {
                         file.CopyTo(filestream);
                     }
@@ -86,7 +84,7 @@ namespace Mercadona.Areas.Admin.Controllers
 
                 }
 
-                if(productViewModel.Product.Id == 0)
+                if (productViewModel.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(productViewModel.Product);
                 }
@@ -94,7 +92,7 @@ namespace Mercadona.Areas.Admin.Controllers
                 {
                     _unitOfWork.Product.Update(productViewModel.Product);
                 }
-                
+
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
@@ -122,11 +120,8 @@ namespace Mercadona.Areas.Admin.Controllers
             if (data != null)
             {
                 Console.WriteLine(data);
-                if(data.EndDate != null && data.EndDate != null)
-                {
-                    data.StartDate.ToString("yyyy-MM-dd");
-                    data.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd");
-                }
+                data.StartDate.ToString("yyyy-MM-dd");
+                data.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd");
                 return Json(data);
             }
             else
@@ -134,12 +129,6 @@ namespace Mercadona.Areas.Admin.Controllers
                 return Json(null);
             }
         }
-        //[HttpPost]
-        //public ActionResult CalculateDiscountedPrice(decimal price, int discountValue)
-        //{
-        //    decimal discountedPrice = price * (1m - discountValue / 100m);
-        //    return Json(discountedPrice);
-        //}
         #region API CALLS
 
         [HttpGet]

@@ -2,7 +2,7 @@
 
 <div class="container-fluid ">
     <div class="p-2 row">
-        <div class="pb-1 col-sm-4">
+        <div class="pb-1 col-sm-3">
             <select class="form-select" id="category-selector" aria-label="Default select example">
                 <option selected>All</option>
                 @foreach (var category in Model.Categories)
@@ -11,13 +11,13 @@
                 }
             </select>
         </div>
-        <div class="pb-1 col-sm-4 btn-group">
+        <div class="pb-1 col-sm-6 btn-group">
             <input type="checkbox" class="btn-check" id="btndiscount" autocomplete="off">
             <label class="btn btn-outline-success" for="btndiscount">Discounted</label>
             <button class="btn btn-success" id="sortasc">A-Z</button>
             <button class="btn btn-success" id="sortdesc">Z-A</button>
         </div>
-        <div class="pb-1 col-sm-4">
+        <div class="pb-1 col-sm-3">
             <input class="form-control" id="search-box" type="text" placeholder="Search..">
         </div>
     </div>
