@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercadona", "Mercadona\Mercadona.csproj", "{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona", "Mercadona\Mercadona.csproj", "{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercadona.DataAccess", "Mercadona.DataAccess\Mercadona.DataAccess.csproj", "{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercadona.Models", "Mercadona.Models\Mercadona.Models.csproj", "{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercadona.Utility", "Mercadona.Utility\Mercadona.Utility.csproj", "{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

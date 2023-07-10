@@ -1,0 +1,62 @@
+﻿@model Discount
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-success bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@(Model.Id != 0 ? "Update" : "Create") Discount</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3 mt-4">
+                <div class="mb-3 row p-1">
+                    <div class="col-6">
+                        <label asp-for="Name" class="p-0"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="DiscountValue" class="p-0"></label>
+                        <input asp-for="DiscountValue" class="form-control" />
+                        <span asp-validation-for="DiscountValue" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row p-1">
+                    <div class="col-6">
+                        <label asp-for="StartDate" class="p-0"></label>
+                        <input type="date" asp-for="StartDate" value="@(Model.Id == 0 ? DateTime.Now.ToString("yyyy-MM-dd") : Model.StartDate.ToString("yyyy-MM-dd"))" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="EndDate" class="p-0"></label>
+                        <input type="date" asp-for="EndDate" value="@(Model.Id == 0 ? null : Model.EndDate != null ? Model.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd") : null)" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        @if (Model.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-success form-control">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success form-control">Create</button>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <a asp-controller="Discount" asp-action="Index" class="btn btn-outline-secondary form-control border">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial"/>
+    }
+}

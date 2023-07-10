@@ -1,0 +1,180 @@
+﻿@model ProductViewModel
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-success bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@(Model.Product.Id!=0?"Update":"Create") Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImageUrl" hidden />
+            <div class="border p-3 mt-4">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Name" class="p-0"></label>
+                            <input asp-for="Product.Name" class="form-control" />
+                            <span asp-validation-for="Product.Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 row p-1">
+                            <label asp-for="Product.Desc" class="p-0"></label>
+                            <textarea asp-for="Product.Desc" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    </div>
+                </div>
+                <div class="mb-3 row p-1">
+                    <div class="col-6">
+                        <label asp-for="Product.CategoryId" class="p-0"></label>
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                            <option disabled selected>--Select Category--</option>
+                        </select>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Product.Price" class="p-0"></label>
+                        <input asp-for="Product.Price" id="Price" onchange="DisableDiscountSelect()" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Product.DiscountedPrice" class="p-0"></label>
+                        <input readonly asp-for="@Model.Product.DiscountedPrice" id="DiscountedPrice" class="form-control" />
+                        <span asp-validation-for="Product.DiscountedPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row p-1">
+                    <div class="col-3">
+                        <label asp-for="Product.DiscountId" class="p-0"></label>
+                        <select disabled asp-for="Product.DiscountId" asp-items="@Model.DiscountList" id="DiscountList" onchange="GetDiscountData()" class="form-select">
+                            <option disabled selected>--Select Discount--</option>
+                            <option ></option>
+                        </select>
+                        <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Product.Discount.DiscountValue" class="p-0"></label>
+                        <input disabled asp-for="Product.Discount.DiscountValue" id="DiscountValue" class="form-control" />
+                        <span asp-validation-for="Product.Discount.DiscountValue" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Product.Discount.StartDate" class="p-0"></label>
+                        <input disabled type="date" asp-for="Product.Discount.StartDate" id="StartDate" class="form-control" />
+                        <span asp-validation-for="Product.Discount.StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Product.Discount.EndDate" class="p-0"></label>
+                        <input disabled type="date" asp-for="Product.Discount.EndDate" id="EndDate" class="form-control" />
+                        <span asp-validation-for="Product.Discount.EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 row p-1">
+                    <label asp-for="Product.ImageUrl" class="p-0"></label>
+                    <input type="file" name="file" class="form-control" />
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        @if (Model.Product.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-success form-control">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success form-control">Create</button>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary form-control border">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons lists table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+    </script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#Price').val() > 0) {
+                $('#DiscountList').prop("disabled", false);
+            }
+            else {
+                $('#DiscountList').prop("disabled", true);
+            }
+        });
+        function DisableDiscountSelect() {
+            $(document).on("change", '#Price', function () {
+                if ($('#Price').val() > 0) {
+                    $('#DiscountList').prop("disabled", false);
+                }
+                else {
+                    $('#DiscountList').prop("disabled", true);
+                }
+            });
+        };
+        function evenRound(num, decimalPlaces) {
+            var d = decimalPlaces || 0;
+            var m = Math.pow(10, d);
+            var n = +(d ? num * m : num).toFixed(8); // Avoid rounding errors
+            var i = Math.floor(n), f = n - i;
+            var e = 1e-8; // Allow for rounding errors in f
+            var r = (f > 0.5 - e && f < 0.5 + e) ?
+                ((i % 2 == 0) ? i : i + 1) : Math.round(n);
+            return d ? r / m : r;
+        }
+        function GetDiscountData() {
+            $(document).on("change", '#DiscountList', function () {
+                $.post("GetDiscountData", { pId: $(this).val() }, function (data) {
+                    if (data != null) {
+                        $('#DiscountValue').val(data.discountValue);
+                        if (data.startDate != null) {
+                            let formattedStartDate = new Date(data.startDate).toISOString().split('T')[0];
+                            $('#StartDate').val(formattedStartDate);
+                        }
+                        if (data.endDate != null) {
+                            let formattedEndDate = new Date(data.endDate).toISOString().split('T')[0];
+                            $('#EndDate').val(formattedEndDate);
+                        }
+                        else {
+                            $('#EndDate').val(null);
+                        }
+                        let price = parseFloat($('#Price').val());
+                        let discountValue = parseFloat(data.discountValue);
+                        let discountedPrice = evenRound(price * (1 - (discountValue / 100)), 2);
+                        $('#DiscountedPrice').val(discountedPrice);
+                        $('#DiscountedPrice').prop("disabled", false);
+                    }
+                    else {
+                        $('#DiscountList').prop("disabled", true);
+                        $('#DiscountValue').val(null);
+                        $('#StartDate').val(null);
+                        $('#EndDate').val(null);
+                        $('#DiscountedPrice').val(null);
+                    }
+                });
+            });
+        };
+    </script>
+    @{
+    <partial name="_ValidationScriptsPartial"/>
+    }
+}
