@@ -33,7 +33,7 @@
                         @if (product.Discount != null && DateTime.Now.Ticks > product.Discount.StartDate.Ticks && product.Discount.EndDate != null && DateTime.Now.Ticks < product.Discount.EndDate.GetValueOrDefault().Ticks || product.Discount != null && DateTime.Now.Ticks > product.Discount.StartDate.Ticks && product.Discount.EndDate == null)
                         {
                             <div class="card-img-overlay ">
-                                <p class="text-white text-center badge rounded-pill bg-success">@product.Discount.Name -@product.Discount.DiscountValue%</p>
+                                <p class="text-white text-center badge rounded-pill bg-danger">@product.Discount.Name -@product.Discount.DiscountValue%</p>
                             </div>
                         }
                         <div class="card-body d-flex flex-column p-2 ">
