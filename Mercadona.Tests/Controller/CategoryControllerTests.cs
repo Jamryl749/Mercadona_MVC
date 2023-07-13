@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mercadona.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -8,19 +10,22 @@ namespace Mercadona.Tests.Controller
     {
         private readonly CategoryController _categoryController;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITempDataProvider _tempDataProvider;
+        private readonly TempDataDictionaryFactory _tempDataDictionaryFactory;
+        private readonly ITempDataDictionary _tempData;
 
         public CategoryControllerTests()
         {
             //Dependencies
             _unitOfWork = A.Fake<IUnitOfWork>();
-            ITempDataProvider tempDataProvider = A.Fake<ITempDataProvider>();
-            TempDataDictionaryFactory tempDataDictionaryFactory = A.Fake<TempDataDictionaryFactory>();
-            ITempDataDictionary tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
+            _tempDataProvider = A.Fake<ITempDataProvider>();
+            _tempDataDictionaryFactory = A.Fake<TempDataDictionaryFactory>();
+            _tempData = _tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
 
             //SUT
             _categoryController = new CategoryController(_unitOfWork)
             {
-                TempData = tempData,
+                TempData = _tempData,
             };
         }
 
@@ -36,12 +41,11 @@ namespace Mercadona.Tests.Controller
         [Fact]
         public void Index_ActionExecutes_ReturnsListOfCategoriesAndCount()
         {
-            var result = _categoryController.Index();
-            var viewResult = result.Should().BeOfType<ViewResult>();
+            //Act
             var categories = _unitOfWork.Category.GetAll().ToList();
-            categories.Add(new Category { Id = 1, Name = "Test" });
-            categories.Add(new Category { Id = 2, Name = "Test2" });
-
+            categories.Add(new Category { });
+            categories.Add(new Category { });
+            //Assert
             categories.Should().BeOfType<List<Category>>();
             categories.Count().Should().Be(2);
         }
@@ -60,20 +64,63 @@ namespace Mercadona.Tests.Controller
         {
             _categoryController.ModelState.AddModelError("Name", "Name is required");
             var category = new Category { };
-
+            //Act
             var result = _categoryController.Create(category);
-
-            Assert.IsType<ViewResult>(result);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
         }
         [Fact]
         public void Create_ActionExecuted_RedirectsToIndexAction()
         {
+            //Arrange
             var category = new Category { Name = "Test Category" };
+            //Act
             var result = _categoryController.Create(category);
             var redirestToActionResult = result.As<RedirectToActionResult>();
-
+            //Assert
             redirestToActionResult.Equals("Index");
-            //Assert.Equal("Index", redirestToActionResult.ActionName);
+        }
+        [Fact]
+        public void Edit_ActionExecutes_ReturnsViewForEdit()
+        {
+            //Arrange
+            
+            //Act
+            var result = _categoryController.Edit(1);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
+        public void Edit_ActionExecuted_RedirectsToIndexAction()
+        {
+            //Arrange
+            var category = new Category { Name = "Test Category" };
+            //Act
+            var result = _categoryController.Edit(category);
+            var redirestToActionResult = result.As<RedirectToActionResult>();
+            //Assert
+            redirestToActionResult.Equals("Index");
+        }
+        [Fact]
+        public void Delete_ActionExecutes_ReturnsViewForEdit()
+        {
+            //Arrange
+            
+            //Act
+            var result = _categoryController.Delete(1);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
+        public void DeletePost_ActionExecutes_ReturnsViewForEdit()
+        {
+            //Arrange
+            
+            //Act
+            var result = _categoryController.DeletePost(1);
+            var redirestToActionResult = result.As<RedirectToActionResult>();
+            //Assert
+            redirestToActionResult.Equals("Index");
         }
     }
 }
