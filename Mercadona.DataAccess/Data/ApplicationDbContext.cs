@@ -24,74 +24,62 @@ namespace Mercadona.DataAccess.Data
 				new Category 
 				{
 					Id = 1,
-					Name = "Fresh Produce",
-					Url = "fresh_produce"
-				},
+					Name = "Fresh Produce"
+                },
 				new Category
 				{
 					Id = 2,
-					Name = "Meat and Poultry",
-					Url = "meat_poultry"
+					Name = "Meat and Poultry"
 				},
 				new Category
 				{
 					Id = 3,
-					Name = "Seafood",
-					Url = "seafood"
+					Name = "Seafood"
 				},
 				new Category
 				{
 					Id = 4,
-					Name = "Dairy and Eggs",
-					Url = "dairy_eggs"
+					Name = "Dairy and Eggs"
 				},
 				new Category
 				{
 					Id = 5,
-					Name = "Snacks and Confectionery",
-					Url = "snacks_confectionery"
+					Name = "Snacks and Confectionery"
 				},
 				new Category
 				{
 					Id = 6,
-					Name = "Bakery",
-					Url = "bakery"
+					Name = "Bakery"
 				},
 				new Category
 				{
 					Id = 7,
-					Name = "Beverages",
-					Url = "beverages"
+					Name = "Beverages"
 				},
 				new Category
 				{
 					Id = 8,
-					Name = "Household Essential",
-					Url = "household_essential"
+					Name = "Household Essential"
 				},
 				new Category
 				{
 					Id = 9,
-					Name = "Personal Care",
-					Url = "personal_care"
+					Name = "Personal Care"
 				},
 				new Category
 				{
 					Id = 10,
-					Name = "Pharmacy",
-					Url = "pharmacy"
+					Name = "Pharmacy"
 				},
 				new Category
 				{
 					Id = 11,
-					Name = "Home Appliance",
-					Url = "home_appliance"
+					Name = "Home Appliance"
 				},
 				new Category
 				{
 					Id = 12,
-					Name = "DIY",
-					Url = "diy"
+					Name = "DIY"
 				}
 				);
             #endregion

@@ -116,13 +116,12 @@ namespace Mercadona.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult GetDiscountData(int? pId)
         {
-            var data = _unitOfWork.Discount.Get(x => x.Id == pId);
-            if (data != null)
+            var discount = _unitOfWork.Discount.Get(x => x.Id == pId);
+            if (discount != null)
             {
-                Console.WriteLine(data);
-                data.StartDate.ToString("yyyy-MM-dd");
-                data.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd");
-                return Json(data);
+                discount.StartDate.ToString("yyyy-MM-dd");
+                discount.EndDate.GetValueOrDefault().ToString("yyyy-MM-dd");
+                return Json(discount);
             }
             else
             {

@@ -32,7 +32,8 @@ namespace Mercadona.Models
         public string Desc { get; set; }
 
         [ValidateNever]
-        public string? ImageUrl { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
 
         [DisplayName("Price")]
         [Required]

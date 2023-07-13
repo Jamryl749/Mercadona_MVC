@@ -1,6 +1,4 @@
-﻿using Mercadona.DataAccess.Data;
-using Mercadona.DataAccess.Repository;
-using Mercadona.DataAccess.Repository.IRepository;
+﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -28,16 +26,11 @@ namespace Mercadona.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
             if (ModelState.IsValid)
             {
-                string categoryName = category.Name;
-                if (categoryName.Any(x => char.IsWhiteSpace(x)))
-                {
-                    category.Url = categoryName.Replace(" ", "_").ToLower();
-                }
-                category.Url.ToLower();
                 _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
@@ -64,12 +57,6 @@ namespace Mercadona.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string categoryName = category.Name;
-                if (categoryName.Any(x => char.IsWhiteSpace(x)))
-                {
-                    category.Url = categoryName.Replace(" ", "_").ToLower();
-                }
-                category.Url.ToLower();
                 _unitOfWork.Category.Update(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully";
