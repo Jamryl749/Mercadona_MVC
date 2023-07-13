@@ -98,7 +98,7 @@
 </div>
 
 @section Scripts{
-    <script>
+    @*<script>
         tinymce.init({
             selector: 'textarea',
             plugins: 'anchor autolink charmap codesample emoticons lists table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
@@ -110,7 +110,7 @@
                 { value: 'Email', title: 'Email' },
             ]
         });
-    </script>
+    </script>*@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -131,16 +131,7 @@
                 }
             });
         };
-        function evenRound(num, decimalPlaces) {
-            var d = decimalPlaces || 0;
-            var m = Math.pow(10, d);
-            var n = +(d ? num * m : num).toFixed(8); // Avoid rounding errors
-            var i = Math.floor(n), f = n - i;
-            var e = 1e-8; // Allow for rounding errors in f
-            var r = (f > 0.5 - e && f < 0.5 + e) ?
-                ((i % 2 == 0) ? i : i + 1) : Math.round(n);
-            return d ? r / m : r;
-        }
+
         function GetDiscountData() {
             $(document).on("change", '#DiscountList', function () {
                 $.post("GetDiscountData", { pId: $(this).val() }, function (data) {
@@ -159,8 +150,8 @@
                         }
                         let price = parseFloat($('#Price').val());
                         let discountValue = parseFloat(data.discountValue);
-                        let discountedPrice = evenRound(price * (1 - (discountValue / 100)), 2);
-                        $('#DiscountedPrice').val(discountedPrice);
+                        let discountedPrice = (price * (1 - (discountValue / 100)));
+                        $('#DiscountedPrice').val(discountedPrice.toFixed(2));
                         $('#DiscountedPrice').prop("disabled", false);
                     }
                     else {

@@ -3,6 +3,7 @@ using System;
 using Mercadona.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mercadona.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230713092608_CHangeImageUrlToRequired")]
+    partial class CHangeImageUrlToRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,10 @@ namespace Mercadona.DataAccess.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -43,62 +50,74 @@ namespace Mercadona.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Fresh Produce"
+                            Name = "Fresh Produce",
+                            Url = "fresh_produce"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Meat and Poultry"
+                            Name = "Meat and Poultry",
+                            Url = "meat_poultry"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Seafood"
+                            Name = "Seafood",
+                            Url = "seafood"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Dairy and Eggs"
+                            Name = "Dairy and Eggs",
+                            Url = "dairy_eggs"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Snacks and Confectionery"
+                            Name = "Snacks and Confectionery",
+                            Url = "snacks_confectionery"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Bakery"
+                            Name = "Bakery",
+                            Url = "bakery"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Beverages"
+                            Name = "Beverages",
+                            Url = "beverages"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Household Essential"
+                            Name = "Household Essential",
+                            Url = "household_essential"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Personal Care"
+                            Name = "Personal Care",
+                            Url = "personal_care"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Pharmacy"
+                            Name = "Pharmacy",
+                            Url = "pharmacy"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Home Appliance"
+                            Name = "Home Appliance",
+                            Url = "home_appliance"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "DIY"
+                            Name = "DIY",
+                            Url = "diy"
                         });
                 });
 
