@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mercadona.DataAccess.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -16,72 +16,72 @@ namespace Mercadona.DataAccess.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
+        {
             base.OnModelCreating(modelBuilder);
 
             #region Category Seeds
             modelBuilder.Entity<Category>().HasData(
-				new Category
+                new Category
                 {
-					Id = 1,
-					Name = "Fresh Produce"
+                    Id = 1,
+                    Name = "Fresh Produce"
                 },
-				new Category
+                new Category
                 {
-					Id = 2,
-					Name = "Meat and Poultry"
-				},
-				new Category
-				{
-					Id = 3,
-					Name = "Seafood"
-				},
-				new Category
+                    Id = 2,
+                    Name = "Meat and Poultry"
+                },
+                new Category
                 {
-					Id = 4,
-					Name = "Dairy and Eggs"
-				},
-				new Category
-				{
-					Id = 5,
-					Name = "Snacks and Confectionery"
-				},
-				new Category
+                    Id = 3,
+                    Name = "Seafood"
+                },
+                new Category
                 {
-					Id = 6,
-					Name = "Bakery"
-				},
-				new Category
+                    Id = 4,
+                    Name = "Dairy and Eggs"
+                },
+                new Category
                 {
-					Id = 7,
-					Name = "Beverages"
-				},
-				new Category
+                    Id = 5,
+                    Name = "Snacks and Confectionery"
+                },
+                new Category
                 {
-					Id = 8,
-					Name = "Household Essential"
-				},
-				new Category
+                    Id = 6,
+                    Name = "Bakery"
+                },
+                new Category
                 {
-					Id = 9,
-					Name = "Personal Care"
-				},
-				new Category
+                    Id = 7,
+                    Name = "Beverages"
+                },
+                new Category
                 {
-					Id = 10,
-					Name = "Pharmacy"
-				},
-				new Category
+                    Id = 8,
+                    Name = "Household Essential"
+                },
+                new Category
                 {
-					Id = 11,
-					Name = "Home Appliance"
-				},
-				new Category
+                    Id = 9,
+                    Name = "Personal Care"
+                },
+                new Category
                 {
-					Id = 12,
-					Name = "DIY"
-				}
-				);
+                    Id = 10,
+                    Name = "Pharmacy"
+                },
+                new Category
+                {
+                    Id = 11,
+                    Name = "Home Appliance"
+                },
+                new Category
+                {
+                    Id = 12,
+                    Name = "DIY"
+                }
+                );
             #endregion
             #region Product Seeds
             modelBuilder.Entity<Product>().HasData(
@@ -877,7 +877,7 @@ namespace Mercadona.DataAccess.Data
                     DiscountId = null,
                     DiscountedPrice = 0m
                 }
-                );;
+                ); ;
             #endregion
             #region Discount Seeds
             modelBuilder.Entity<Discount>().HasData(

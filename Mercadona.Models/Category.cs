@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mercadona.Models
 {
-	public class Category
-	{
+    public class Category
+    {
         [Key]
         public int Id { get; set; }
 
-		[DisplayName("Category Name")]
+        [DisplayName("Category Name")]
         [Required]
         [MaxLength(30)]
-		public string Name { get; set; }
+        public string Name { get; set; }
     }
 }

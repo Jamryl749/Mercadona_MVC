@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Mercadona.DataAccess.Data;
+﻿using Mercadona.DataAccess.Data;
 using Mercadona.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Mercadona.DataAccess.Repository
 {
@@ -50,9 +45,9 @@ namespace Mercadona.DataAccess.Repository
         public IEnumerable<T> GetAll(string? includeCategories = null, string? includeDiscounts = null)
         {
             IQueryable<T> query = _dbSet;
-            if(!string.IsNullOrEmpty(includeCategories))
+            if (!string.IsNullOrEmpty(includeCategories))
             {
-                foreach(var includeProp in includeCategories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includeCategories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }

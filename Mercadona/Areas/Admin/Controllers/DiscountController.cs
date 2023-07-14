@@ -1,13 +1,8 @@
-﻿using Mercadona.DataAccess.Data;
-using Mercadona.DataAccess.Repository;
-using Mercadona.DataAccess.Repository.IRepository;
+﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
-using Mercadona.Models.ViewModels;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 
 namespace Mercadona.Areas.Admin.Controllers
@@ -54,7 +49,7 @@ namespace Mercadona.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var productList = _unitOfWork.Product.GetAll().Where( x => x.DiscountId == discount.Id).ToList();
+                    var productList = _unitOfWork.Product.GetAll().Where(x => x.DiscountId == discount.Id).ToList();
                     if (productList.Count > 0)
                     {
                         foreach (Product product in productList)
