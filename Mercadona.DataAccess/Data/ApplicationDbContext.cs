@@ -21,13 +21,13 @@ namespace Mercadona.DataAccess.Data
 
             #region Category Seeds
             modelBuilder.Entity<Category>().HasData(
-				new Category 
-				{
+				new Category
+                {
 					Id = 1,
 					Name = "Fresh Produce"
                 },
 				new Category
-				{
+                {
 					Id = 2,
 					Name = "Meat and Poultry"
 				},
@@ -37,7 +37,7 @@ namespace Mercadona.DataAccess.Data
 					Name = "Seafood"
 				},
 				new Category
-				{
+                {
 					Id = 4,
 					Name = "Dairy and Eggs"
 				},
@@ -47,37 +47,37 @@ namespace Mercadona.DataAccess.Data
 					Name = "Snacks and Confectionery"
 				},
 				new Category
-				{
+                {
 					Id = 6,
 					Name = "Bakery"
 				},
 				new Category
-				{
+                {
 					Id = 7,
 					Name = "Beverages"
 				},
 				new Category
-				{
+                {
 					Id = 8,
 					Name = "Household Essential"
 				},
 				new Category
-				{
+                {
 					Id = 9,
 					Name = "Personal Care"
 				},
 				new Category
-				{
+                {
 					Id = 10,
 					Name = "Pharmacy"
 				},
 				new Category
-				{
+                {
 					Id = 11,
 					Name = "Home Appliance"
 				},
 				new Category
-				{
+                {
 					Id = 12,
 					Name = "DIY"
 				}

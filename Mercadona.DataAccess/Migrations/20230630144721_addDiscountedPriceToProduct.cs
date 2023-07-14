@@ -5,7 +5,7 @@
 namespace Mercadona.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addDiscountedPriceToProduct : Migration
+    public partial class AddDiscountedPriceToProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

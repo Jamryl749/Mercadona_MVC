@@ -13,11 +13,11 @@ namespace Mercadona.DataAccess.Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _db;
-        internal DbSet<T> dbSet;
+        internal DbSet<T> _dbSet;
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            this.dbSet = _db.Set<T>();
+            this._dbSet = _db.Set<T>();
             _db.Products.Include(x => x.Category).Include(y => y.Discount);
         }
         public void Add(T entity)
@@ -27,7 +27,7 @@ namespace Mercadona.DataAccess.Repository
 
         public T Get(Expression<Func<T, bool>> filter, string? includeCategories = null, string? includeDiscounts = null)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = _dbSet;
             query = query.Where(filter);
             if (!string.IsNullOrEmpty(includeCategories))
             {
@@ -49,7 +49,7 @@ namespace Mercadona.DataAccess.Repository
 
         public IEnumerable<T> GetAll(string? includeCategories = null, string? includeDiscounts = null)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> query = _dbSet;
             if(!string.IsNullOrEmpty(includeCategories))
             {
                 foreach(var includeProp in includeCategories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
@@ -69,12 +69,12 @@ namespace Mercadona.DataAccess.Repository
 
         public void Remove(T entity)
         {
-            dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<T> entity)
         {
-            dbSet.RemoveRange(entity);
+            _dbSet.RemoveRange(entity);
         }
     }
 }

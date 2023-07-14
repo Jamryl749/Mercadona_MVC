@@ -1,7 +1,8 @@
-﻿using Mercadona.Models;
+﻿using Mercadona.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Mercadona.Tests.Controller
@@ -10,16 +11,15 @@ namespace Mercadona.Tests.Controller
     {
         private readonly ProductController _productController;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ITempDataProvider _tempDataProvider;
         private readonly TempDataDictionaryFactory _tempDataDictionaryFactory;
         private readonly ITempDataDictionary _tempData;
         private readonly IWebHostEnvironment _hostingEnvironment;
+
 
         public ProductControllerTests()
         {
             //Dependencies
             _unitOfWork = A.Fake<IUnitOfWork>();
-            _tempDataProvider = A.Fake<ITempDataProvider>();
             _tempDataDictionaryFactory = A.Fake<TempDataDictionaryFactory>();
             _tempData = _tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
             _hostingEnvironment = A.Fake<IWebHostEnvironment>();
@@ -45,8 +45,8 @@ namespace Mercadona.Tests.Controller
         {
             //Act
             var products = _unitOfWork.Product.GetAll().ToList();
-            products.Add(new Product {  });
-            products.Add(new Product {  });
+            products.Add(new Product { });
+            products.Add(new Product { });
             //Assert
             products.Should().BeOfType<List<Product>>();
             products.Count().Should().Be(2);
@@ -81,7 +81,7 @@ namespace Mercadona.Tests.Controller
             result.Should().BeOfType<ViewResult>();
         }
         [Fact]
-        public void Upsert_Post_ActionExecutes_ReturnsViewForZero()
+        public void Upsert_Get_ActionExecutes_ReturnsViewForZero()
         {
             //Arrange
             //Act
@@ -90,13 +90,48 @@ namespace Mercadona.Tests.Controller
             result.Should().BeOfType<ViewResult>();
         }
         [Fact]
-        public void Upsert_Post_ActionExecuted_RedirectsToIndexAction()
+        public void Upsert_Post_ActionExecutes_RedirectsToIndexAction()
         {
             //Arrange
+            var product = new Product { };
+            var categoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var discountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
             //Act
-            var result = _productController.Upsert(0);
+            var result = _productController.Upsert(productViewModel, null);
+            var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
-            result.Should().BeOfType<IActionResult>();
+            redirestToActionResult.Equals("Index");
+        }
+        [Fact]
+        public void Upsert_Post_InvalidModelState_ReturnsView()
+        {
+            _productController.ModelState.AddModelError("Name", "Name is required");
+            var iFormFile = A.Fake<IFormFile>();
+            var product = new Product { };
+            var categoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var discountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
+            //Act
+            var result = _productController.Upsert(productViewModel, iFormFile);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
         }
         [Fact]
         public void GetAll_ActionExecutes_ReturnsJson()

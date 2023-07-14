@@ -13,7 +13,7 @@ namespace Mercadona.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230630144721_addDiscountedPriceToProduct")]
-    partial class addDiscountedPriceToProduct
+    partial class AddDiscountedPriceToProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
