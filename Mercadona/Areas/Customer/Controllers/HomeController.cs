@@ -25,7 +25,6 @@ namespace Mercadona.Areas.Customer.Controllers
                 Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount"),
                 Categories = _unitOfWork.Category.GetAll()
             };
-            //IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount");
             return View(catalogueViewModel);
         }
 

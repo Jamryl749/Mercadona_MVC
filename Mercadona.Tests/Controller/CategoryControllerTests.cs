@@ -10,7 +10,6 @@ namespace Mercadona.Tests.Controller
     {
         private readonly CategoryController _categoryController;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ITempDataProvider _tempDataProvider;
         private readonly TempDataDictionaryFactory _tempDataDictionaryFactory;
         private readonly ITempDataDictionary _tempData;
 
@@ -18,7 +17,6 @@ namespace Mercadona.Tests.Controller
         {
             //Dependencies
             _unitOfWork = A.Fake<IUnitOfWork>();
-            _tempDataProvider = A.Fake<ITempDataProvider>();
             _tempDataDictionaryFactory = A.Fake<TempDataDictionaryFactory>();
             _tempData = _tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
 
