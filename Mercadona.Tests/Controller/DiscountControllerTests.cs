@@ -1,6 +1,4 @@
-﻿using Mercadona.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -95,7 +93,7 @@ namespace Mercadona.Tests.Controller
         public void Upsert_ActionExecutes_ReturnsViewForEdit()
         {
             //Arrange
-            
+
             //Act
             var result = _discountController.Upsert(1);
             //Assert

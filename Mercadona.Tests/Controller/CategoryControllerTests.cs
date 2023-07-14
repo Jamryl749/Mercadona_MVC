@@ -1,6 +1,4 @@
-﻿using Mercadona.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -82,7 +80,7 @@ namespace Mercadona.Tests.Controller
         public void Edit_ActionExecutes_ReturnsViewForEdit()
         {
             //Arrange
-            
+
             //Act
             var result = _categoryController.Edit(1);
             //Assert
@@ -103,7 +101,7 @@ namespace Mercadona.Tests.Controller
         public void Delete_ActionExecutes_ReturnsViewForEdit()
         {
             //Arrange
-            
+
             //Act
             var result = _categoryController.Delete(1);
             //Assert
@@ -113,7 +111,7 @@ namespace Mercadona.Tests.Controller
         public void DeletePost_ActionExecutes_ReturnsViewForEdit()
         {
             //Arrange
-            
+
             //Act
             var result = _categoryController.DeletePost(1);
             var redirestToActionResult = result.As<RedirectToActionResult>();

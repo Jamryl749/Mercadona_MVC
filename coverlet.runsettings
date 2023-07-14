@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+    <DataCollectionRunSettings>
+        <DataCollectors>
+            <DataCollector friendlyName="XPlat code coverage">
+                <Configuration>
+                  <ExcludeByFile>**/Migrations/*.cs,**/Views/**/*.cshtml,**/Areas/Admin/Views/**/*.cshtml,**/Areas/Customer/Views/**/*.cshtml,,**/Areas/Identity/**/*.cshtml**/Areas/Identity/Pages/Account/*.cshtml,**/Areas/Identity/Pages/Account/Manage/*.cshtml,**/Areas/Identity/**/*.cs,**/Areas/Identity/Pages/Account/*.cshtml,**/Areas/Identity/Pages/*.cshtml</ExcludeByFile> <!-- Globbing filter -->
+                </Configuration>
+            </DataCollector>
+        </DataCollectors>
+    </DataCollectionRunSettings>
+</RunSettings>
