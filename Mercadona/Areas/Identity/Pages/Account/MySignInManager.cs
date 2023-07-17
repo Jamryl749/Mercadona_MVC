@@ -9,10 +9,10 @@ namespace Mercadona.Areas.Identity.Pages.Account
         {
         }
 
-        public override async Task<SignInResult> PasswordSignInAsync(string userName, string password,
+        public override async Task<SignInResult> PasswordSignInAsync(string email, string password,
             bool isPersistent, bool lockoutOnFailure)
         {
-            var user = await UserManager.FindByEmailAsync(userName);
+            var user = await UserManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return SignInResult.Failed;

@@ -111,11 +111,6 @@ namespace Mercadona.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-            }
-
             Input = new()
             {
                 Roles = _roleManager.Roles.Select(x => x.Name).Select(y => new SelectListItem
