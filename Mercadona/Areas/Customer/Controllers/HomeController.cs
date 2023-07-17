@@ -27,6 +27,51 @@ namespace Mercadona.Areas.Customer.Controllers
             };
             return View(catalogueViewModel);
         }
+        public PartialViewResult GetProducts()
+        {
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel()
+            {
+                Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount"),
+                Categories = _unitOfWork.Category.GetAll()
+            };
+            return PartialView("_Catalogue", catalogueViewModel);
+        }
+        public PartialViewResult FilterDiscounted(string categoryId)
+        {
+            var currentDate = DateTime.Now;
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel();
+            if (categoryId == "all")
+            {
+                catalogueViewModel.Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(
+                    x => x.DiscountId != null &&
+                    DateTime.Now.Ticks > x.Discount.StartDate.Ticks && x.Discount.EndDate != null && DateTime.Now.Ticks < x.Discount.EndDate.GetValueOrDefault().Ticks ||
+                    x.Discount != null && DateTime.Now.Ticks > x.Discount.StartDate.Ticks && x.Discount.EndDate == null);
+                catalogueViewModel.Categories = _unitOfWork.Category.GetAll();
+            }
+            else
+            {
+                catalogueViewModel.Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(x => x.CategoryId.ToString() == categoryId &&
+                    x.DiscountId != null && DateTime.Now.Ticks > x.Discount.StartDate.Ticks && x.Discount.EndDate != null && DateTime.Now.Ticks < x.Discount.EndDate.GetValueOrDefault().Ticks ||
+                    x.CategoryId.ToString() == categoryId && x.Discount != null && DateTime.Now.Ticks > x.Discount.StartDate.Ticks && x.Discount.EndDate == null);
+                catalogueViewModel.Categories = _unitOfWork.Category.GetAll();
+            }
+            return PartialView("_Catalogue", catalogueViewModel); 
+        }
+        public PartialViewResult FilterCategory(string categoryId)
+        {
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel();
+            if (categoryId == "all")
+            {
+                catalogueViewModel.Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount");
+                catalogueViewModel.Categories = _unitOfWork.Category.GetAll();
+            }
+            else
+            {
+                catalogueViewModel.Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(p => p.CategoryId.ToString() == categoryId);
+                catalogueViewModel.Categories = _unitOfWork.Category.GetAll();
+            }
+            return PartialView("_Catalogue", catalogueViewModel);
+        }
 
         public IActionResult Privacy()
         {
@@ -37,6 +82,14 @@ namespace Mercadona.Areas.Customer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IEnumerable<Product> SelectedCategoryProducts(int id)
+        {
+            return _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(x => x.CategoryId == id);
+        }
+        public IEnumerable<Product> SelectedCategoryProducts(string search)
+        {
+            return _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(x => x.Name == "search");
         }
     }
 }
