@@ -52,8 +52,8 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
-        [HttpPost]
-        public IActionResult Edit(Category category)
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditPost(Category category)
         {
             if (ModelState.IsValid)
             {

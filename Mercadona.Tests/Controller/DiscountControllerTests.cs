@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mercadona.DataAccess.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -8,7 +10,6 @@ namespace Mercadona.Tests.Controller
     {
         private readonly DiscountController _discountController;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ITempDataProvider _tempDataProvider;
         private readonly TempDataDictionaryFactory _tempDataDictionaryFactory;
         private readonly ITempDataDictionary _tempData;
 
@@ -16,7 +17,6 @@ namespace Mercadona.Tests.Controller
         {
             //Dependencies
             _unitOfWork = A.Fake<IUnitOfWork>();
-            _tempDataProvider = A.Fake<ITempDataProvider>();
             _tempDataDictionaryFactory = A.Fake<TempDataDictionaryFactory>();
             _tempData = _tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
 
@@ -25,6 +25,7 @@ namespace Mercadona.Tests.Controller
             {
                 TempData = _tempData,
             };
+
         }
 
         [Fact]
@@ -58,12 +59,32 @@ namespace Mercadona.Tests.Controller
             result.Should().BeOfType<ViewResult>();
         }
         [Fact]
+        public void Upsert_Get_ZeroId_ReturnsView()
+        {
+            //Arrange
+
+            //Act
+            var result = _discountController.Upsert(0);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
+        public void Upsert_Get_NullId_ReturnsView()
+        {
+            //Arrange
+
+            //Act
+            var result = _discountController.Upsert(null);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
         public void Upsert_Post_InvalidModelState_ReturnsView()
         {
             _discountController.ModelState.AddModelError("Name", "Name is required");
             var discount = new Discount { };
             //Act
-            var result = _discountController.Upsert(discount);
+            var result = _discountController.UpsertPost(discount);
             //Assert
             result.Should().BeOfType<ViewResult>();
         }
@@ -71,20 +92,20 @@ namespace Mercadona.Tests.Controller
         public void Upsert_Post_ActionExecuted_RedirectsToIndexActionAfterCreate()
         {
             //Arrange
-            var discount = new Discount { Id = 1, Name = "Test", DiscountValue = 50, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(15) };
+            var discount = new Discount { Id = 0, Name = "Test", DiscountValue = 50, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(15) };
             //Act
-            var result = _discountController.Upsert(discount);
+            var result = _discountController.UpsertPost(discount);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");
         }
         [Fact]
-        public void Upsert_Post_ActionExecuted_RedirectsToIndexActionAfterEdit()
+        public void Upsert_Post_ActionExecuted_RedirectsToIndexActionAfterUpdate()
         {
             //Arrange
             var discount = new Discount { Id = 1, Name = "Test", DiscountValue = 50, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(15) };
             //Act
-            var result = _discountController.Upsert(discount);
+            var result = _discountController.UpsertPost(discount);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");
@@ -106,7 +127,7 @@ namespace Mercadona.Tests.Controller
             var discount = new Discount { Id = 1, Name = "Test", DiscountValue = 50, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(15) };
 
             //Act
-            var result = _discountController.Upsert(discount);
+            var result = _discountController.UpsertPost(discount);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");

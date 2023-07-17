@@ -221,9 +221,9 @@ var assemblies = [
   {
     "name": "Mercadona",
     "classes": [
-      { "name": "Mercadona.Areas.Admin.Controllers.CategoryController", "rp": "Mercadona_CategoryController.html", "cl": 48, "ucl": 11, "cal": 59, "tl": 95, "cb": 10, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Admin.Controllers.DiscountController", "rp": "Mercadona_DiscountController.html", "cl": 40, "ucl": 17, "cal": 57, "tl": 99, "cb": 7, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Admin.Controllers.ProductController", "rp": "Mercadona_ProductController.html", "cl": 58, "ucl": 49, "cal": 107, "tl": 165, "cb": 10, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Admin.Controllers.CategoryController", "rp": "Mercadona_CategoryController.html", "cl": 53, "ucl": 6, "cal": 59, "tl": 95, "cb": 15, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Admin.Controllers.DiscountController", "rp": "Mercadona_DiscountController.html", "cl": 45, "ucl": 12, "cal": 57, "tl": 99, "cb": 10, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Admin.Controllers.ProductController", "rp": "Mercadona_ProductController.html", "cl": 66, "ucl": 41, "cal": 107, "tl": 165, "cb": 11, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Areas.Customer.Controllers.HomeController", "rp": "Mercadona_HomeController.html", "cl": 0, "ucl": 19, "cal": 19, "tl": 42, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Program", "rp": "Mercadona_Program.html", "cl": 0, "ucl": 59, "cal": 59, "tl": 81, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
