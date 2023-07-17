@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona", "Mercadona\Mercadona.csproj", "{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MercadonaWeb", "Mercadona\MercadonaWeb.csproj", "{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.DataAccess", "Mercadona.DataAccess\Mercadona.DataAccess.csproj", "{F97A8E21-7CEA-4620-9942-6EE2D43E3B89}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Models", "Mercado
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Utility", "Mercadona.Utility\Mercadona.Utility.csproj", "{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercadona.Tests", "Mercadona.Tests\Mercadona.Tests.csproj", "{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Tests", "Mercadona.Tests\Mercadona.Tests.csproj", "{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7} = {3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}
 		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD} = {EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}

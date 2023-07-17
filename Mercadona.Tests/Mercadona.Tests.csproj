@@ -28,7 +28,7 @@
     <ProjectReference Include="..\Mercadona.DataAccess\Mercadona.DataAccess.csproj" />
     <ProjectReference Include="..\Mercadona.Models\Mercadona.Models.csproj" />
     <ProjectReference Include="..\Mercadona.Utility\Mercadona.Utility.csproj" />
-    <ProjectReference Include="..\Mercadona\Mercadona.csproj" />
+    <ProjectReference Include="..\Mercadona\MercadonaWeb.csproj" />
   </ItemGroup>
 
 </Project>
