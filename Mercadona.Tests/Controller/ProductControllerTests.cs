@@ -1,6 +1,7 @@
 ﻿using Mercadona.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -148,6 +149,13 @@ namespace Mercadona.Tests.Controller
             //Act
             var result = _productController.Delete(1);
             //Assert
+            result.Should().BeOfType<JsonResult>();
+        }
+        [Fact]
+        public void GetDiscountData_ActionExecutes_ReturnJson()
+        {
+            var result = _productController.GetDiscountData(1);
+
             result.Should().BeOfType<JsonResult>();
         }
     }

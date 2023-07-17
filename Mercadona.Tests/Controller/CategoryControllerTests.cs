@@ -92,10 +92,41 @@ namespace Mercadona.Tests.Controller
             //Arrange
             var category = new Category { Name = "Test Category" };
             //Act
-            var result = _categoryController.Edit(category);
+            var result = _categoryController.EditPost(category);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");
+        }
+        [Fact]
+        public void Edit_ModelStateInvalid_RedirectsToView()
+        {
+            //Arrange
+            _categoryController.ModelState.AddModelError("Name", "Name is required");
+            var category = new Category { };
+            //Act
+            var result = _categoryController.EditPost(category);
+            //Assert
+            result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
+        public void Edit_ZeroId_ReturnNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _categoryController.Edit(0);
+            //Assert
+            result.Should().BeOfType<NotFoundResult>();
+        }
+        [Fact]
+        public void Edit_NullId_ReturnNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _categoryController.Edit(null);
+            //Assert
+            result.Should().BeOfType<NotFoundResult>();
         }
         [Fact]
         public void Delete_ActionExecutes_ReturnsViewForEdit()
@@ -106,6 +137,26 @@ namespace Mercadona.Tests.Controller
             var result = _categoryController.Delete(1);
             //Assert
             result.Should().BeOfType<ViewResult>();
+        }
+        [Fact]
+        public void Delete_ZeroId_ReturnNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _categoryController.Delete(0);
+            //Assert
+            result.Should().BeOfType<NotFoundResult>();
+        }
+        [Fact]
+        public void Delete_nullId_ReturnNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _categoryController.Delete(null);
+            //Assert
+            result.Should().BeOfType<NotFoundResult>();
         }
         [Fact]
         public void DeletePost_ActionExecutes_ReturnsViewForEdit()

@@ -38,8 +38,8 @@ namespace Mercadona.Areas.Admin.Controllers
                 return View(discount);
             }
         }
-        [HttpPost]
-        public IActionResult Upsert(Discount discount)
+        [HttpPost, ActionName("Upsert")]
+        public IActionResult UpsertPost(Discount discount)
         {
             if (ModelState.IsValid)
             {
