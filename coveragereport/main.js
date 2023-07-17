@@ -224,17 +224,17 @@ var assemblies = [
       { "name": "Mercadona.Areas.Admin.Controllers.CategoryController", "rp": "Mercadona_CategoryController.html", "cl": 53, "ucl": 6, "cal": 59, "tl": 95, "cb": 15, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Areas.Admin.Controllers.DiscountController", "rp": "Mercadona_DiscountController.html", "cl": 45, "ucl": 12, "cal": 57, "tl": 99, "cb": 10, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Areas.Admin.Controllers.ProductController", "rp": "Mercadona_ProductController.html", "cl": 66, "ucl": 41, "cal": 107, "tl": 165, "cb": 11, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Customer.Controllers.HomeController", "rp": "Mercadona_HomeController.html", "cl": 0, "ucl": 19, "cal": 19, "tl": 42, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Customer.Controllers.HomeController", "rp": "Mercadona_HomeController.html", "cl": 16, "ucl": 3, "cal": 19, "tl": 42, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Program", "rp": "Mercadona_Program.html", "cl": 0, "ucl": 59, "cal": 59, "tl": 81, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "Mercadona.DataAccess",
     "classes": [
       { "name": "Mercadona.DataAccess.Data.ApplicationDbContext", "rp": "Mercadona.DataAccess_ApplicationDbContext.html", "cl": 900, "ucl": 0, "cal": 900, "tl": 920, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.DataAccess.Repository.CategoryRepository", "rp": "Mercadona.DataAccess_CategoryRepository.html", "cl": 4, "ucl": 3, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.DataAccess.Repository.DiscountRepository", "rp": "Mercadona.DataAccess_DiscountRepository.html", "cl": 4, "ucl": 3, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.DataAccess.Repository.ProductRepository", "rp": "Mercadona.DataAccess_ProductRepository.html", "cl": 4, "ucl": 22, "cal": 26, "tl": 38, "cb": 0, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.DataAccess.Repository.Repository<T>", "rp": "Mercadona.DataAccess_Repository_1.html", "cl": 25, "ucl": 27, "cal": 52, "tl": 75, "cb": 4, "tb": 16, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.DataAccess.Repository.CategoryRepository", "rp": "Mercadona.DataAccess_CategoryRepository.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.DataAccess.Repository.DiscountRepository", "rp": "Mercadona.DataAccess_DiscountRepository.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.DataAccess.Repository.ProductRepository", "rp": "Mercadona.DataAccess_ProductRepository.html", "cl": 26, "ucl": 0, "cal": 26, "tl": 38, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.DataAccess.Repository.Repository<T>", "rp": "Mercadona.DataAccess_Repository_1.html", "cl": 52, "ucl": 0, "cal": 52, "tl": 75, "cb": 16, "tb": 16, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.DataAccess.Repository.UnitOfWork", "rp": "Mercadona.DataAccess_UnitOfWork.html", "cl": 13, "ucl": 0, "cal": 13, "tl": 24, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
   {
@@ -243,8 +243,8 @@ var assemblies = [
       { "name": "Mercadona.Models.Category", "rp": "Mercadona.Models_Category.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 16, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Models.Discount", "rp": "Mercadona.Models_Discount.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 27, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Models.ErrorViewModel", "rp": "Mercadona.Models_ErrorViewModel.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Models.Product", "rp": "Mercadona.Models_Product.html", "cl": 8, "ucl": 2, "cal": 10, "tl": 49, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Models.ViewModels.CatalogueViewModel", "rp": "Mercadona.Models_CatalogueViewModel.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Models.Product", "rp": "Mercadona.Models_Product.html", "cl": 9, "ucl": 1, "cal": 10, "tl": 49, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Models.ViewModels.CatalogueViewModel", "rp": "Mercadona.Models_CatalogueViewModel.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 12, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.Models.ViewModels.ProductViewModel", "rp": "Mercadona.Models_ProductViewModel.html", "cl": 3, "ucl": 0, "cal": 3, "tl": 15, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
   {

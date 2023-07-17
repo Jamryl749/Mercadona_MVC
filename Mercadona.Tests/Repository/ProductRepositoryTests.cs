@@ -15,7 +15,7 @@ namespace Mercadona.Tests.Repository
             return databaseContext;
         }
         [Fact]
-        public async void CategoryRepository_Add_ReturnsBool()
+        public async void ProductRepository_Add_ReturnsBoolAndCountPlus1()
         {
             //Arrange
             var product = new Product()
@@ -31,69 +31,59 @@ namespace Mercadona.Tests.Repository
             var dbContext = await GetDbContext();
             var uow = new UnitOfWork(dbContext);
             int count = uow.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Count();
-            int newCount = 0;
-
             //Act& Assert
-            try
+            uow.Product.Add(product);
+            uow.Save();
+            int newCount = uow.Product.GetAll().Count();
+            if (newCount == count + 1)
             {
-                uow.Product.Add(product);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
-            }
-            newCount.Equals(count + 1);
         }
         [Fact]
-        public async void CategoryRepository_Update_ReturnsBool()
+        public async void ProductRepository_Update_ReturnsBoolAndCountEqual()
         {
             //Arrange
             var dbContext = await GetDbContext();
             var uow = new UnitOfWork(dbContext);
             var product = uow.Product.Get(x => x.Id == 5);
             int count = uow.Product.GetAll().Count();
-            int newCount = 0;
 
             //Act& Assert
-            try
+            uow.Product.Update(product);
+            uow.Save();
+            int newCount = uow.Product.GetAll().Count();
+            if (newCount == count)
             {
-                uow.Product.Update(product);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
-            }
-            newCount.Equals(count - 1);
         }
         [Fact]
-        public async void CategoryRepository_Remove_ReturnsBool()
+        public async void ProductRepository_Remove_ReturnsBoolAndCountMinus1()
         {
             //Arrange
             var dbContext = await GetDbContext();
             var uow = new UnitOfWork(dbContext);
             var product = uow.Product.Get(x => x.Id == 5, includeCategories: "Category", includeDiscounts: "Discount");
             int count = uow.Product.GetAll().Count();
-            int newCount = 0;
 
             //Act& Assert
-            try
+            uow.Product.Remove(product);
+            uow.Save();
+            int newCount = uow.Product.GetAll().Count();
+            if (newCount == count - 1)
             {
-                uow.Product.Remove(product);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
-            }
-            newCount.Equals(count - 1);
         }
         [Fact]
-        public async void CategoryRepository_RemoveRange_ReturnsBool()
+        public async void ProductRepository_RemoveRange_ReturnsBoolAndCountMinus3()
         {
             //Arrange
             var dbContext = await GetDbContext();
@@ -108,20 +98,18 @@ namespace Mercadona.Tests.Repository
                 product7
             };
             int count = uow.Product.GetAll().Count();
-            int newCount = 0;
+            
 
             //Act& Assert
-            try
+            uow.Product.RemoveRange(productList);
+            uow.Save();
+            int newCount = uow.Product.GetAll().Count();
+            if (newCount == count - 3)
             {
-                uow.Product.RemoveRange(productList);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
-            }
-            newCount.Equals(count - 1);
         }
     }
 }

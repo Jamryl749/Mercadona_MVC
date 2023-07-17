@@ -15,7 +15,7 @@ namespace Mercadona.Tests.Repository
             return databaseContext;
         }
         [Fact]
-        public async void CategoryRepository_Add_ReturnsBool()
+        public async void DiscountRepository_Add_ReturnsBoolAndCountPlus1()
         {
             //Arrange
             var discount = new Discount()
@@ -28,43 +28,57 @@ namespace Mercadona.Tests.Repository
             var dbContext = await GetDbContext();
             var uow = new UnitOfWork(dbContext);
             int count = uow.Discount.GetAll().Count();
-            int newCount = 0;
 
             //Act& Assert
-            try
+            uow.Discount.Add(discount);
+            uow.Save();
+            int newCount = uow.Discount.GetAll().Count();
+            if (newCount == count + 1)
             {
-                uow.Discount.Add(discount);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
-            }
-            newCount.Equals(count + 1);
         }
         [Fact]
-        public async void CategoryRepository_Remove_ReturnsBool()
+        public async void DiscountRepository_Update_ReturnsBoolAndCountEqual()
         {
             //Arrange
             var dbContext = await GetDbContext();
             var uow = new UnitOfWork(dbContext);
             var discount = uow.Discount.Get(x => x.Id == 2);
             int count = uow.Discount.GetAll().Count();
-            int newCount = 0;
 
             //Act& Assert
-            try
+            uow.Discount.Update(discount);
+            uow.Save();
+            int newCount = uow.Discount.GetAll().Count();
+            if (newCount == count)
             {
-                uow.Discount.Remove(discount);
-                uow.Save();
                 Assert.True(true);
             }
-            catch
-            {
+            else
                 Assert.True(false);
+        }
+        [Fact]
+        public async void DiscountRepository_Remove_ReturnsBoolAndCountMinus1()
+        {
+            //Arrange
+            var dbContext = await GetDbContext();
+            var uow = new UnitOfWork(dbContext);
+            var discount = uow.Discount.Get(x => x.Id == 2);
+            int count = uow.Discount.GetAll().Count();
+
+            //Act& Assert
+            uow.Discount.Remove(discount);
+            uow.Save();
+            int newCount = uow.Discount.GetAll().Count();
+            if (newCount == count - 1)
+            {
+                Assert.True(true);
             }
-            newCount.Equals(count - 1);
+            else
+                Assert.True(false);
         }
     }
 }
