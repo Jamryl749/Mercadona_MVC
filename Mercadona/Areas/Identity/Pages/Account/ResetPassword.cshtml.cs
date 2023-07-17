@@ -2,15 +2,20 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using Mercadona.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Text;
 
 namespace Mercadona.Areas.Identity.Pages.Account
 {
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

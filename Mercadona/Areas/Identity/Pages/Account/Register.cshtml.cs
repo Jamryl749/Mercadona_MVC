@@ -4,6 +4,7 @@
 
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Text;
 using System.Text.Encodings.Web;
 
 namespace Mercadona.Areas.Identity.Pages.Account
 {
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

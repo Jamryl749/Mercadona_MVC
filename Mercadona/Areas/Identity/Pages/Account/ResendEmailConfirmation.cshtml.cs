@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using Mercadona.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -14,7 +15,8 @@ using System.Text.Encodings.Web;
 
 namespace Mercadona.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ResendEmailConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
