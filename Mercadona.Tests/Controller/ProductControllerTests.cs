@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Text;
 
 namespace Mercadona.Tests.Controller
 {
@@ -91,10 +92,32 @@ namespace Mercadona.Tests.Controller
             result.Should().BeOfType<ViewResult>();
         }
         [Fact]
-        public void Upsert_Post_ActionExecutes_RedirectsToIndexAction()
+        public void Upsert_Post_ActionExecutesWithNullFile_RedirectsToIndexAction()
         {
             //Arrange
             var product = new Product { };
+            var categoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var discountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+            var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
+            //Act
+            var result = _productController.Upsert(productViewModel, null);
+            var redirestToActionResult = result.As<RedirectToActionResult>();
+            //Assert
+            redirestToActionResult.Equals("Index");
+        }
+        [Fact]
+        public void Upsert_Post_ActionExecutesWithNullFileAndExixtingProduct_RedirectsToIndexAction()
+        {
+            //Arrange
+            var product = new Product { Id = 1};
             var categoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
             {
                 Text = x.Name,
@@ -155,6 +178,13 @@ namespace Mercadona.Tests.Controller
         public void GetDiscountData_ActionExecutes_ReturnJson()
         {
             var result = _productController.GetDiscountData(1);
+
+            result.Should().BeOfType<JsonResult>();
+        }
+        [Fact]
+        public void GetDiscountData_ActionExecutes_ReturnNull()
+        {
+            var result = _productController.GetDiscountData(null);
 
             result.Should().BeOfType<JsonResult>();
         }

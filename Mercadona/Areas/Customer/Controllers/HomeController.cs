@@ -83,13 +83,5 @@ namespace Mercadona.Areas.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IEnumerable<Product> SelectedCategoryProducts(int id)
-        {
-            return _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(x => x.CategoryId == id);
-        }
-        public IEnumerable<Product> SelectedCategoryProducts(string search)
-        {
-            return _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").Where(x => x.Name == "search");
-        }
     }
 }

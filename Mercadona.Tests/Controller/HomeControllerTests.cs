@@ -40,6 +40,48 @@ namespace Mercadona.Tests.Controller
             result.Should().BeOfType<ViewResult>();
         }
         [Fact]
+        public void GetProduct_ActionExecutes_ReturnsPartialViewForCatalogue()
+        {
+            //Arrange
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel()
+            {
+                Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount"),
+                Categories = _unitOfWork.Category.GetAll()
+            };
+            //Act
+            var result = _homeController.GetProducts();
+            //Assert
+            result.Should().BeOfType<PartialViewResult>();
+        }
+        [Fact]
+        public void FilterDiscounted_ActionExecutes_ReturnsPartialViewForCatalogue()
+        {
+            //Arrange
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel()
+            {
+                Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount"),
+                Categories = _unitOfWork.Category.GetAll()
+            };
+            //Act
+            var result = _homeController.FilterDiscounted("all");
+            //Assert
+            result.Should().BeOfType<PartialViewResult>();
+        }
+        [Fact]
+        public void FilterCategory_ActionExecutes_ReturnsPartialViewForCatalogue()
+        {
+            //Arrange
+            CatalogueViewModel catalogueViewModel = new CatalogueViewModel()
+            {
+                Products = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount"),
+                Categories = _unitOfWork.Category.GetAll()
+            };
+            //Act
+            var result = _homeController.FilterCategory("2");
+            //Assert
+            result.Should().BeOfType<PartialViewResult>();
+        }
+        [Fact]
         public void Privacy_ActionExecutes_ReturnsViewForPrivacy()
         {
             //Act

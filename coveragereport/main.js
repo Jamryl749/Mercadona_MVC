@@ -219,18 +219,10 @@ for (i = 0, l = charts.length; i < l; i++) {
 
 var assemblies = [
   {
-    "name": "Mercadona",
-    "classes": [
-      { "name": "Mercadona.Areas.Admin.Controllers.CategoryController", "rp": "Mercadona_CategoryController.html", "cl": 53, "ucl": 6, "cal": 59, "tl": 95, "cb": 15, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Admin.Controllers.DiscountController", "rp": "Mercadona_DiscountController.html", "cl": 45, "ucl": 12, "cal": 57, "tl": 99, "cb": 10, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Admin.Controllers.ProductController", "rp": "Mercadona_ProductController.html", "cl": 66, "ucl": 41, "cal": 107, "tl": 165, "cb": 11, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Mercadona.Areas.Customer.Controllers.HomeController", "rp": "Mercadona_HomeController.html", "cl": 16, "ucl": 3, "cal": 19, "tl": 42, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Program", "rp": "Mercadona_Program.html", "cl": 0, "ucl": 59, "cal": 59, "tl": 81, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-    ]},
-  {
     "name": "Mercadona.DataAccess",
     "classes": [
       { "name": "Mercadona.DataAccess.Data.ApplicationDbContext", "rp": "Mercadona.DataAccess_ApplicationDbContext.html", "cl": 900, "ucl": 0, "cal": 900, "tl": 920, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.DataAccess.DbInitializer.DbInitializer", "rp": "Mercadona.DataAccess_DbInitializer.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 57, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.DataAccess.Repository.CategoryRepository", "rp": "Mercadona.DataAccess_CategoryRepository.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.DataAccess.Repository.DiscountRepository", "rp": "Mercadona.DataAccess_DiscountRepository.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Mercadona.DataAccess.Repository.ProductRepository", "rp": "Mercadona.DataAccess_ProductRepository.html", "cl": 26, "ucl": 0, "cal": 26, "tl": 38, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
@@ -251,6 +243,15 @@ var assemblies = [
     "name": "Mercadona.Utility",
     "classes": [
       { "name": "Mercadona.Utility.EmailSender", "rp": "Mercadona.Utility_EmailSender.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 13, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+    ]},
+  {
+    "name": "MercadonaWeb",
+    "classes": [
+      { "name": "Mercadona.Areas.Admin.Controllers.CategoryController", "rp": "MercadonaWeb_CategoryController.html", "cl": 53, "ucl": 6, "cal": 59, "tl": 95, "cb": 15, "tb": 18, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Admin.Controllers.DiscountController", "rp": "MercadonaWeb_DiscountController.html", "cl": 45, "ucl": 12, "cal": 57, "tl": 99, "cb": 10, "tb": 14, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Admin.Controllers.ProductController", "rp": "MercadonaWeb_ProductController.html", "cl": 69, "ucl": 38, "cal": 107, "tl": 165, "cb": 12, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Mercadona.Areas.Customer.Controllers.HomeController", "rp": "MercadonaWeb_HomeController.html", "cl": 46, "ucl": 13, "cal": 59, "tl": 87, "cb": 2, "tb": 36, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Program", "rp": "MercadonaWeb_Program.html", "cl": 0, "ucl": 68, "cal": 68, "tl": 93, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
