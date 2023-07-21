@@ -1,4 +1,8 @@
-﻿using Mercadona.DataAccess.Data;
+﻿/**
+ *@file ProductRepository.cs
+ *brief Repository for the product implementing the IProductRepository interface
+*/
+using Mercadona.DataAccess.Data;
 using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 
@@ -11,6 +15,11 @@ namespace Mercadona.DataAccess.Repository
         {
             _db = db;
         }
+        /**
+         *@fn Update()
+         *@param product a Product class argument
+         *brief Implementation of the Update() fn from the IProductRepository interface
+        */
         public void Update(Product product)
         {
             var productFromDb = _db.Products.FirstOrDefault(x => x.Id == product.Id);

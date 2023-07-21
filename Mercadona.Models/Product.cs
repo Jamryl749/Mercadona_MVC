@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿/**
+ *@file Product.cs
+ *brief The product class variables that defines a product. 
+*/
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,9 +28,11 @@ namespace Mercadona.Models
 
         [DisplayName("Product Description")]
         [Required]
+        [StringLength(100)]
         public string Desc { get; set; }
 
         [ValidateNever]
+        [DisplayName("Image Url")]
         [Required]
         public string ImageUrl { get; set; }
 
@@ -43,7 +49,7 @@ namespace Mercadona.Models
         public Discount? Discount { get; set; }
 
         [DisplayName("Disc. Price")]
-        [Range(Double.Epsilon, Double.MaxValue, ErrorMessage = "The discounted price must be superior to 0")]
+        [Range(0.01, Double.MaxValue, ErrorMessage = "The discounted price must be superior to 0")]
         public decimal? DiscountedPrice { get; set; }
     }
 }

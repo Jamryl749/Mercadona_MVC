@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿/**
+ *@file Category.cs
+ *brief The category class variables that defines a category. 
+*/
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mercadona.Models

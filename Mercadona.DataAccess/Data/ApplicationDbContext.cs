@@ -1,4 +1,8 @@
-﻿using Mercadona.Models;
+﻿/**
+ *@file ApplicationDbContext.cs
+ *brief Database Context file that comes with Entity Framework Core used for identity 
+*/
+using Mercadona.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +16,22 @@ namespace Mercadona.DataAccess.Data
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
+        /**
+         * @brief Create a Categories table containing Category entities using Entity Framework Core
+        */
         public DbSet<Category> Categories { get; set; }
+        /**
+         * @brief Create a Products table containing Product entities using Entity Framework Core
+        */
         public DbSet<Product> Products { get; set; }
+        /**
+         * @brief Create a Discounts table containing Discount entities using Entity Framework Core
+        */
         public DbSet<Discount> Discounts { get; set; }
+        /**
+         * @fn protected override void OnModelCreating(ModelBuilder modelBuilder)
+         * @brief Used to seed data to the database
+        */
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

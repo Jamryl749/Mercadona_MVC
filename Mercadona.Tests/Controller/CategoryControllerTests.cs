@@ -61,7 +61,7 @@ namespace Mercadona.Tests.Controller
             _categoryController.ModelState.AddModelError("Name", "Name is required");
             var category = new Category { };
             //Act
-            var result = _categoryController.Create(category);
+            var result = _categoryController.CreatePost(category);
             //Assert
             result.Should().BeOfType<ViewResult>();
         }
@@ -71,7 +71,7 @@ namespace Mercadona.Tests.Controller
             //Arrange
             var category = new Category { Name = "Test Category" };
             //Act
-            var result = _categoryController.Create(category);
+            var result = _categoryController.CreatePost(category);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");

@@ -1,13 +1,11 @@
-﻿using Mercadona.DataAccess.Data;
-using Mercadona.Models;
+﻿/**
+ *@file DbInitializer.cs
+ *brief Use to create and seed the first Role and AdminUser of the website to the database when deploying
+*/
+using Mercadona.DataAccess.Data;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mercadona.DataAccess.DbInitializer
 {
@@ -26,22 +24,28 @@ namespace Mercadona.DataAccess.DbInitializer
 
         public void Initialize()
         {
-            //Add migrations if they are not applied
+            /**
+             * Add migrations if they are not applied
+            */ 
             try
             {
-                if(_db.Database.GetPendingMigrations().Count() > 0)
+                if (_db.Database.GetPendingMigrations().Any())
                 {
                     _db.Database.Migrate();
                 }
             }
             catch (Exception ex) { }
-            
-            //Create roles if they are not created
+
+            /**
+             * Create roles if they are not created
+            */
             if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-                
-                //If roles are not created, then we will create admin user as well
+
+                /**
+                * If roles are not created, then we will create admin user as well
+                */
                 _userManager.CreateAsync(new IdentityUser
                 {
                     UserName = "Admin",

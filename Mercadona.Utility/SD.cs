@@ -1,4 +1,8 @@
-﻿namespace Mercadona.Utility
+﻿/**
+ *@file SD.cs
+ *brief A simple class containing Users's roles and console commands for creating and formating coverlet code coverage report 
+*/
+namespace Mercadona.Utility
 {
     /// <summary>
     /// Codecoverage Command

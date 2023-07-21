@@ -108,7 +108,7 @@ namespace Mercadona.Tests.Controller
             });
             var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
             //Act
-            var result = _productController.Upsert(productViewModel, null);
+            var result = _productController.UpsertPost(productViewModel, null);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");
@@ -130,7 +130,7 @@ namespace Mercadona.Tests.Controller
             });
             var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
             //Act
-            var result = _productController.Upsert(productViewModel, null);
+            var result = _productController.UpsertPost(productViewModel, null);
             var redirestToActionResult = result.As<RedirectToActionResult>();
             //Assert
             redirestToActionResult.Equals("Index");
@@ -153,7 +153,7 @@ namespace Mercadona.Tests.Controller
             });
             var productViewModel = new ProductViewModel { Product = product, CategoryList = categoryList, DiscountList = discountList };
             //Act
-            var result = _productController.Upsert(productViewModel, iFormFile);
+            var result = _productController.UpsertPost(productViewModel, iFormFile);
             //Assert
             result.Should().BeOfType<ViewResult>();
         }

@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿/**
+ *@file Discount.cs
+ *brief The discount class variables that defines a discount. 
+*/
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mercadona.Models
@@ -15,6 +19,7 @@ namespace Mercadona.Models
 
         [DisplayName("% Dicsount")]
         [Required]
+        [Range(1, 99, ErrorMessage = "The discount must be between 1% and 99%")]
         public int DiscountValue { get; set; }
 
         [DisplayName("Start Date")]
