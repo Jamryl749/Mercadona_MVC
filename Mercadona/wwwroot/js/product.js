@@ -65,25 +65,37 @@ function loadDataTable() {
 }
 
 function Delete(url) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
+    Notiflix.Confirm.show(
+        'Are you sure?',
+        "You won't be able to revert this!",
+        'Yes, delete it!',
+        'Nope',
+        function okCb() {
             $.ajax({
                 url: url,
                 type: 'DELETE',
                 success: function (data) {
-                    dataTable.ajax.reload();
-                    toastr.success(data.message);
-                }
+                    if (data.success == true) {
+                        dataTable.ajax.reload();
+                        Notiflix.Notify.success(data.title, {
+                            clickToClose: true,
+                            position: 'right-bottom',
+                        })
+                    }
+                    else {
+                        dataTable.ajax.reload();
+                        Notiflix.Report.failure(data.title, data.message, data.button, {
+                            clickToClose: true,
+                            position: 'right-bottom',
+                        }
+                        )
+                    }
+                },
             })
-        }
-    })
+        },
+        function cancelCB() {
+
+        },
+    );
 }
 

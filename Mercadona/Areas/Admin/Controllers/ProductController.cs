@@ -192,7 +192,7 @@ namespace Mercadona.Areas.Admin.Controllers
             var productToBeDeleted = _unitOfWork.Product.Get(x => x.Id == id);
             if (productToBeDeleted == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, title = "Error while deleting", message = " ", button = "Damn" });
             }
 
             if (productToBeDeleted.ImageUrl != null)
@@ -207,7 +207,7 @@ namespace Mercadona.Areas.Admin.Controllers
             _unitOfWork.Product.Remove(productToBeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Product deleted successfully" });
+            return Json(new { success = true, title = "Discount deleted successfully", message = " ", button = "Nice" });
         }
 
         #endregion

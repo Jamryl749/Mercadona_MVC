@@ -95,7 +95,6 @@ namespace Mercadona.Areas.Admin.Controllers
                     }
                     _unitOfWork.Discount.Update(discount);
                 }
-
                 _unitOfWork.Save();
                 TempData["success"] = "Discount created successfully";
                 return RedirectToAction("Index");
@@ -125,15 +124,20 @@ namespace Mercadona.Areas.Admin.Controllers
         public IActionResult Delete(int? id)
         {
             var discountToBeDeleted = _unitOfWork.Discount.Get(x => x.Id == id);
+            var productWithDiscountToBeDeleted = _unitOfWork.Product.GetAll().Any(x => x.DiscountId == id);
             if (discountToBeDeleted == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, title = "Error while deleting", message = " ", button = "Damn" });
+            }
+            if (productWithDiscountToBeDeleted == true)
+            {
+                return Json(new { success = false, title = "Error while deleting", message = "Please remove this discount from any product first", button = "Damn" });
             }
 
             _unitOfWork.Discount.Remove(discountToBeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Discount deleted successfully" });
+            return Json(new { success = true, title = "Discount deleted successfully", message = " ", button = "Nice" });
         }
 
         #endregion

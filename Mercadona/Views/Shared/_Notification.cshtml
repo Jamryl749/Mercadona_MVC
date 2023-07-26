@@ -1,22 +1,22 @@
 ﻿@if (TempData["success"] != null)
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/js/notiflix-aio-3.2.6.min.js"></script>
     <script type="text/javascript">
-        toastr.success('@TempData["success"]');
+        Notiflix.Notify.success('@TempData["success"]', {
+            clickToClose: true,
+            position: 'right-bottom',
+        });
     </script>
-    @*<div class="justify-content-center bg-success-subtle">
-        <p class="text-success text-center">@TempData["success"]</p>
-    </div>*@
 }
 @if (TempData["error"] != null)
 {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/js/notiflix-aio-3.2.6.min.js"></script>
     <script type="text/javascript">
-        toastr.error('@TempData["error"]');
+        Notiflix.Notify.failure('@TempData["error"]', {
+            clickToClose: true,
+            position: 'right-bottom',
+        });
     </script>
-    @*<div class="justify-content-center bg-danger-subtle">
-        <p class="text-success text-center">@TempData["error"]</p>
-    </div>*@
 }
