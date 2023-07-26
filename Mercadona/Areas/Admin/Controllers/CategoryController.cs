@@ -1,58 +1,61 @@
-﻿/**
- *@file CategoryController.cs
- *@brief Controller for the Category Entities
- *@details It determines what response to send back to a user when a user makes a browser request concerning a category.
-*/
-using Mercadona.DataAccess.Repository.IRepository;
+﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
+/// <summary>
+/// Handles the functionality related to categories, including viewing, creating, editing, and deleting categories.
+/// </summary>
 namespace Mercadona.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// The CategoryController is responsible for handling CRUD operations for categories.
+    /// </summary>
+    /// <remarks>
+    /// The controller is decorated with the Authorize attribute, so only users in the "Admin" role can use its methods.
+    /// </remarks>
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+
+        /// <summary>
+        /// Initializes a new instance of the CategoryController class.
+        /// </summary>
+        /// <param name="unitOfWork">Unit of Work pattern, used for manipulating database records.</param>
         public CategoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-        /**
-         * @fn Index()
-         * @return Category/Index.cshtml
-         * @brief Return (Read and Show) the Index page for the Category entities.
-         * @details In this case it shows all the categories present on the database as a list. From there you can perform CRUD (Create, Read(Show), Update, Delete) on categories.
-        */
+
+        /// <summary>
+        /// Lists all categories.
+        /// </summary>
+        /// <returns>View displaying the list of categories.</returns>
         public IActionResult Index()
         {
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
-        /**
-         * @fn Create()
-         * @return Category/Create.cshtml
-         * @brief Return the page for the creation of Category entities.
-         * @details In this case, it shows all the fields necessary to create a new category.
-        */
+
+        /// <summary>
+        /// Displays a form for creating a new category.
+        /// </summary>
+        /// <returns>View displaying the form for creating a category.</returns>
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-        /**
-         * @fn CreatePost()
-         * @param category is a new Category class element we just created
-         * @return Category/Index.cshtml if the ModelState is valid
-         * @return Category/Create.cshtml if the ModelState is not valid
-         * @brief Return the Category Index page or on the Create page.
-         * @details if (ModelState.IsValid)
-         * @details Uses Add() function from the IRepository to add the new category to the database. Then we use the Save() function from the IUnitOfWork interface to save the database. And finally we return the Index page to show the list of all the categories
-         * @details else
-         * @details Stays on the Create page.
-        */
+
+        /// <summary>
+        /// Handles the submission of a form for creating a new category.
+        /// </summary>
+        /// <param name="category">Category to be created.</param>
+        /// <returns>Redirects to index action after successful creation, otherwise returns the same view for displaying validation errors.</returns>
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public IActionResult CreatePost(Category category)
@@ -66,17 +69,12 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             return View();
         }
-        /**
-         * @fn Edit()
-         * @param id an int
-         * @return NotFound() if id is null equals 0 or the category retreived from the id is null
-         * @return Category/Edit.cshtml if the category element is found
-         * @brief Return the Category Edit page.
-         * @details if (id != null || id != 0 ||categoryFromDb !=null)
-         * @details Show the Edit.cshtml page
-         * @details else
-         * @details NotFound
-        */
+        /// <summary>
+        /// Displays a form for editing an existing category.
+        /// </summary>
+        /// <param name="id">ID of the category to be edited.</param>
+        /// <returns>View displaying the form for editing a category.</returns>
+
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -91,17 +89,12 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
-        /**
-         * @fn EditPost()
-         * @param category is an existing Category class element from the database
-         * @return Category/Index.cshtml if the ModelState is valid
-         * @return Category/Edit.cshtml if the ModelState is not valid
-         * @brief Return the Category Index page or stay on the Edit page.
-         * @details if (ModelState.IsValid)
-         * @details Use the Update() function from the IRepository to edit the category on the database. Then use the Save() function from the IUnitOfWork interface to save the database. And finally we return the Index page to show the list of all the categories
-         * @details else
-         * @details Stays on the Edit page.
-        */
+
+        /// <summary>
+        /// Handles the submission of a form for editing a category.
+        /// </summary>
+        /// <param name="category">Edited category.</param>
+        /// <returns>Redirects to index action after successful edit, otherwise returns the same view for displaying validation errors.</returns>
         [HttpPost, ActionName("Edit")]
         public IActionResult EditPost(Category category)
         {
@@ -114,17 +107,12 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             return View();
         }
-        /**
-         * @fn Delete()
-         * @param id an int
-         * @return NotFound() if id is null equals 0 or the category retreived from the id is null
-         * @return Category/Delete.cshtml if the category element is found
-         * @brief Return the Category Delete page.
-         * @details if (id != null || id != 0 ||categoryFromDb !=null) 
-         * @details Show the Delete.cshtml page
-         * @details else
-         * @details NotFound
-        */
+
+        /// <summary>
+        /// Displays a form for deleting a category.
+        /// </summary>
+        /// <param name="id">ID of the category to be deleted.</param>
+        /// <returns>View displaying the form for deleting a category.</returns>
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -139,17 +127,12 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
-        /**
-         * @fn DeletePost()
-         * @param id an int
-         * @return NotFound() if the category retreived from the id is null
-         * @return Category/Index.cshtml if the category exist on the database is valid
-         * @brief Return the Category Index page after the delete of an existing Category entitiy.
-         * @details if (category != null)
-         * @details If it is, we use the Remove() function from the IRepository to delete the category from the database. Then we use the Save() function from the IUnitOfWork interface to save the database. And finally we return the Index page to show the list of all the categories
-         * @details else
-         * return NotFound()
-        */
+
+        /// <summary>
+        /// Handles the submission of a form for deleting a category.
+        /// </summary>
+        /// <param name="id">ID of the category to be deleted.</param>
+        /// <returns>Redirects to index action after successful deletion.</returns>
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {

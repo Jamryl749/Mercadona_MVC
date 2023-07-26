@@ -1,14 +1,17 @@
-﻿/**
- *@file ApplicationDbContext.cs
- *brief Database Context file that comes with Entity Framework Core used for identity 
-*/
-using Mercadona.Models;
+﻿using Mercadona.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+/// <summary>
+/// Namespace for Mercadona DataAccess Data.
+/// </summary>
 namespace Mercadona.DataAccess.Data
 {
+    /// <summary>
+    /// Initializes a new instance of the ApplicationDbContext class.
+    /// </summary>
+    /// <param name="options">The options to be used by a DbContext.</param>
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -16,26 +19,32 @@ namespace Mercadona.DataAccess.Data
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
-        /**
-         * @brief Create a Categories table containing Category entities using Entity Framework Core
-        */
+        /// <summary>
+        /// Gets or sets the categories.
+        /// </summary>
         public DbSet<Category> Categories { get; set; }
-        /**
-         * @brief Create a Products table containing Product entities using Entity Framework Core
-        */
+
+        /// <summary>
+        /// Gets or sets the products.
+        /// </summary>
         public DbSet<Product> Products { get; set; }
-        /**
-         * @brief Create a Discounts table containing Discount entities using Entity Framework Core
-        */
+
+        /// <summary>
+        /// Gets or sets the discounts.
+        /// </summary>
         public DbSet<Discount> Discounts { get; set; }
-        /**
-         * @fn protected override void OnModelCreating(ModelBuilder modelBuilder)
-         * @brief Used to seed data to the database
-        */
+
+        /// <summary>
+        /// Configures the model that was discovered by convention from the entity types
+        /// exposed in DbSet properties on your derived context.
+        /// </summary>
+        /// <param name="modelBuilder">The builder being used to construct the model for this context. Databases (and other extensions) typically
+        /// define extension methods on this object that allow you to configure aspects of the model that are specific to a given database.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // Seed data for Category, Product, and Discount entities
             #region Category Seeds
             modelBuilder.Entity<Category>().HasData(
                 new Category

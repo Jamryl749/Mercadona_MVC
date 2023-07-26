@@ -1,25 +1,32 @@
-﻿/**
- *@file ProductRepository.cs
- *brief Repository for the product implementing the IProductRepository interface
-*/
-using Mercadona.DataAccess.Data;
+﻿using Mercadona.DataAccess.Data;
 using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 
+/// <summary>
+/// Namespace for Mercadona.DataAccess.Repository.
+/// </summary>
 namespace Mercadona.DataAccess.Repository
 {
+    /// <summary>
+    /// Repository for the product implementing the IProductRepository interface.
+    /// </summary>
     public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _db;
+
+        /// <summary>
+        /// Initializes a new instance of the ProductRepository class.
+        /// </summary>
+        /// <param name="db">The application database context.</param>
         public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
-        /**
-         *@fn Update()
-         *@param product a Product class argument
-         *brief Implementation of the Update() fn from the IProductRepository interface
-        */
+
+        /// <summary>
+        /// Implementation of the Update() function from the IProductRepository interface.
+        /// </summary>
+        /// <param name="product">A Product class instance.</param>
         public void Update(Product product)
         {
             var productFromDb = _db.Products.FirstOrDefault(x => x.Id == product.Id);
@@ -45,3 +52,4 @@ namespace Mercadona.DataAccess.Repository
         }
     }
 }
+

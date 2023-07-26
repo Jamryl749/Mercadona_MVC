@@ -1,9 +1,4 @@
-﻿/**
- *@file ProductController.cs
- *@brief Controller for the Product Entities
- *@details It determines what response to send back to a user when a user makes a browser request concerning a product.
-*/
-using Mercadona.DataAccess.Repository.IRepository;
+﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
 using Mercadona.Models.ViewModels;
 using Mercadona.Utility;
@@ -12,38 +7,51 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 
+
+/// <summary>
+/// Handles the functionality related to products, including viewing, creating, editing, and deleting products.
+/// </summary>
 namespace Mercadona.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// ProductController is responsible for handling CRUD operations for products.
+    /// </summary>
+    /// <remarks>
+    /// This controller is decorated with the Authorize attribute, allowing only users with the "Admin" role to use its methods.
+    /// </remarks>
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
+        /// <summary>
+        /// Initializes a new instance of the ProductController class.
+        /// </summary>
+        /// <param name="unitOfWork">Unit of Work pattern, used for manipulating database records.</param>
+        /// <param name="webHostEnvironment">The hosting environment this application is running in.</param>
         public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        /**
-         * @fn Index()
-         * @return Product/Index.cshtml
-         * @brief Return (Read and Show) the Index page for the Product entities.
-         * @details In this case it shows all the products present on the database as a list. From there you can perform CRUD (Create, Read(Show), Update, Delete) on products.
-        */
+        /// <summary>
+        /// Lists all products.
+        /// </summary>
+        /// <returns>View displaying the list of products.</returns>
         public IActionResult Index()
         {
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeCategories: "Category", includeDiscounts: "Discount").ToList();
             return View(objProductList);
         }
 
-        /**
-         * @fn Upsert()
-         * @param id an int
-         * @return Product/Upsert.cshtml
-         * @brief Return the page for the creation/edition of Product entities.
-        */
+        /// <summary>
+        /// Prepares the form for creating a new product or updating an existing one.
+        /// </summary>
+        /// <param name="id">ID of the product, if null or 0 a new product will be created.</param>
+        /// <returns>View displaying the form for creating or updating a product.</returns>
         [HttpGet]
         public IActionResult Upsert(int? id)
         {
@@ -74,18 +82,12 @@ namespace Mercadona.Areas.Admin.Controllers
             }
         }
 
-        /**
-         * @fn UpsertPost()
-         * @param productViewModel is a ProductViewModel class element
-         * @param file is a IFormFile interface
-         * @return Product/Index.cshtml if the ModelState is valid
-         * @return Product/Upsert.cshtml if the ModelState is not valid
-         * @brief Create or Edit a product.
-         * @details if (ModelState.IsValid)
-         * @details Create or replace the product image, Uses Add() function from the IRepository to add the new product to the database. Then Save() function from the IUnitOfWork interface to save the database. Return the Index page to show the list of all the products
-         * @details else
-         * GetAll() the existing products that have the product and update them. Uses the Update() function from the IRepository interface to update the product. Then Save() function from the IUnitOfWork interface to save the database and redirect to the Index page.
-        */
+        /// <summary>
+        /// Handles the submission of a form for creating or updating a product.
+        /// </summary>
+        /// <param name="productViewModel">ViewModel representing the product.</param>
+        /// <param name="file">Image file associated with the product.</param>
+        /// <returns>Redirects to index action after successful creation/update, otherwise returns the same view for displaying validation errors.</returns>
         [HttpPost, ActionName("Upsert")]
         public IActionResult UpsertPost(ProductViewModel productViewModel, IFormFile? file)
         {
@@ -146,11 +148,11 @@ namespace Mercadona.Areas.Admin.Controllers
             }
         }
 
-        /**
-         * @fn GetDiscountData()
-         * @return a discount as Json
-         * @brief Return a Discount entities as a Json.
-        */
+        /// <summary>
+        /// Retrieves the discount details for a product.
+        /// </summary>
+        /// <param name="pId">ID of the product.</param>
+        /// <returns>JSON containing discount details associated with a product.</returns>
         [HttpPost]
         public ActionResult GetDiscountData(int? pId)
         {
@@ -168,11 +170,10 @@ namespace Mercadona.Areas.Admin.Controllers
         }
 
         #region API CALLS
-        /**
-         * @fn GetAll()
-         * @return A list of products as Json
-         * @brief Return a list of Products entities as a Json.
-        */
+        /// <summary>
+        /// Lists all products as a JSON response.
+        /// </summary>
+        /// <returns>JSON response containing all products.</returns>
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -180,17 +181,11 @@ namespace Mercadona.Areas.Admin.Controllers
             return Json(new { data = objProductList });
         }
 
-        /**
-         * @fn Delete()
-         * @param id an int
-         * @return a fail Json message if the product retreived from the id is null
-         * @return a success Json message if the product exist
-         * @brief Return the Product Index page after the delete of an existing Product entitiy.
-         * @details if productToBeDeleted != null
-         * @details We use the Remove() function from the IRepository to delete the product from the database. Then we use the Save() function from the IUnitOfWork interface to save the database and finally we return a success Json mesage
-         * @details else
-         * @details return a fail Json message if the product retreived from the id is null
-        */
+        /// <summary>
+        /// Deletes a product with the specified id.
+        /// </summary>
+        /// <param name="id">ID of the product to be deleted.</param>
+        /// <returns>JSON response containing the result of the deletion operation.</returns>
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
