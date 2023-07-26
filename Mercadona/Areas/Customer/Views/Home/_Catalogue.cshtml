@@ -4,7 +4,7 @@
     <ul class="row pb-3  list-unstyled" id="catalogue">
         @foreach (var product in Model.Products)
         {
-            <li class="col-lg-3 col-sm-6">
+            <li class="col-lg-3 col-sm-6" data-id="@product.Name.ToLower()">
                 <div class="col-12 p-1 d-flex align-items-stretch p-2">
                     <div class="card border-0 shadow border border-5 rounded p-2 ">
                         <img src="@product.ImageUrl" class="card-img imf-fluid img-top rounded-2 " style="height: 250px; object-fit: cover;">
