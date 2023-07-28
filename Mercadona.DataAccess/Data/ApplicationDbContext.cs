@@ -35,6 +35,11 @@ namespace Mercadona.DataAccess.Data
         public DbSet<Discount> Discounts { get; set; }
 
         /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        /// <summary>
         /// Configures the model that was discovered by convention from the entity types
         /// exposed in DbSet properties on your derived context.
         /// </summary>

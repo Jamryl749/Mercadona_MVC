@@ -1,0 +1,62 @@
+﻿@model List<ApplicationUser>
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-success bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Category List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pt-4 pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-warning">
+                    <i class="bi bi-plus-circle"></i> Create New User
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="align-middle table table-sm table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model)
+            {
+                <tr class="pt-4 pb-3">
+                    <th scope="row">@user.UserName</th>
+                    <td class="col">@user.Email</td>
+                    <td class="col">@user.Role</td>
+                    <td class="col" text-center">
+                        <div class="btn-group" role="group">
+                            @if(User.Identity.Name != user.UserName)
+                            {
+                                var today = DateTimeOffset.Now;
+                                var lockout = user.LockoutEnd;
+                                if(lockout > today)
+                                {
+                                        <a asp-controller="User" asp-action="LockUnlock" asp-route-id="@user.Id" class="btn btn-danger mx-2"><i class="bi bi-lock-fill"></i>Lock</a>
+                                }
+                                else
+                                {
+                                        <a asp-controller="User" asp-action="LockUnlock" asp-route-id="@user.Id" class="btn btn-success mx-2"><i class="bi bi-unlock-fill"></i>Unlock</a>
+                                }
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -19,29 +19,32 @@
             </div>
         </div>
     </div>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Category Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in Model)
-            {
-                <tr class="pt-4 pb-3">
-                    <td class="col-md-9">@category.Name</td>
-                    <td class="col-md-3 text-center">
-                        <div class="w-auto btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-success mx-2">
-                                <i class="bi bi-pencil-square"></i>Edit
-                            </a>
-                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>Delete
-                            </a>
-                        </div>
-                    </td>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Category Name</th>
+                    <th scope="col"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr class="pt-4 pb-3">
+                        <th scope="row">@category.Name</th>
+                        <td class="col">
+                            <div class="w-auto btn-group" role="group">
+                                <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-success mx-2">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                                <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i>Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

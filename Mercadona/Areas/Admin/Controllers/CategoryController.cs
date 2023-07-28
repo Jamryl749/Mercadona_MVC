@@ -143,7 +143,7 @@ namespace Mercadona.Areas.Admin.Controllers
             }
             _unitOfWork.Category.Remove(category);
             _unitOfWork.Save();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Operation successful";
             return RedirectToAction("Index");
         }
     }

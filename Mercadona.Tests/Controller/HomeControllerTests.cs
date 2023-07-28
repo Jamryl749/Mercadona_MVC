@@ -22,7 +22,7 @@ namespace Mercadona.Tests.Controller
             //Dependencies
             _logger = A.Fake<ILogger<HomeController>>();
             _unitOfWork = A.Fake<IUnitOfWork>();
-            _homeController = new HomeController(_logger, _unitOfWork);
+            _homeController = new HomeController(_unitOfWork);
         }
 
         [Fact]

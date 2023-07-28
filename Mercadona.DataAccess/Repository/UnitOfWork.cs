@@ -30,6 +30,11 @@ namespace Mercadona.DataAccess.Repository
         public IDiscountRepository Discount { get; private set; }
 
         /// <summary>
+        /// Gets the ApplicationUser repository.
+        /// </summary>
+        public IApplicationUserRepository ApplicationUser { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the UnitOfWork class.
         /// </summary>
         /// <param name="db">The application database context.</param>
@@ -37,6 +42,7 @@ namespace Mercadona.DataAccess.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
             Product = new ProductRepository(_db);
             Discount = new DiscountRepository(_db);
         }

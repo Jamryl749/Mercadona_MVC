@@ -1,4 +1,5 @@
 ﻿using Mercadona.DataAccess.Data;
+using Mercadona.Models;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -52,13 +53,14 @@ namespace Mercadona.DataAccess.DbInitializer
             if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-                _userManager.CreateAsync(new IdentityUser
+
+                _userManager.CreateAsync(new ApplicationUser
                 {
                     UserName = "Admin",
                     Email = "admin@example.com"
                 }, ",Q-!nnF.aCG#8f@ss+q@").GetAwaiter().GetResult();
 
-                IdentityUser user = _userManager.Users.FirstOrDefault(u => u.Email == "admin@example.com");
+                ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@example.com");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
             }
             return;
