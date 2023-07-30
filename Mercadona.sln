@@ -11,13 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Models", "Mercado
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Utility", "Mercadona.Utility\Mercadona.Utility.csproj", "{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mercadona.Tests", "Mercadona.Tests\Mercadona.Tests.csproj", "{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7} = {3C41E667-D0AB-47B8-9BAD-3ACCDC129CF7}
-		{EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD} = {EEA1A1C8-3916-48AB-B3D0-1B7C8D0B47FD}
-		{F97A8E21-7CEA-4620-9942-6EE2D43E3B89} = {F97A8E21-7CEA-4620-9942-6EE2D43E3B89}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,10 +33,6 @@ Global
 		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9CD3565-BB3F-42E0-B19C-E2DAF4F9918C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9032C82-55B4-4CB4-9E90-18C94ABC1E5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
