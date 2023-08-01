@@ -54,19 +54,8 @@ namespace Mercadona.Areas.Admin.Controllers
 
             if (id == null || id == 0)
             {
-                List<Discount> discounts = new List<Discount>();
-                discounts = _unitOfWork.Discount.GetAll().ToList();
-                if (!discounts.Any(x => x.Name.ToLower() == discount.Name.ToLower()))
-                {
-                    //create
-                    return View(discount);
-                }
-                else
-                {
-                    Span<char> destination = stackalloc char[1];
-                    TempData["error"] = $"The \"{char.ToUpper(discount.Name[0]) + discount.Name.Substring(1)}\" product already exists";
-                    return View(discount);
-                }
+                //create
+                return View(discount);
             }
             else
             {
@@ -86,26 +75,48 @@ namespace Mercadona.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Discount> discounts = new List<Discount>();
+                discounts = _unitOfWork.Discount.GetAll().ToList();
                 if (discount.Id == 0)
                 {
-                    _unitOfWork.Discount.Add(discount);
+                    if (!discounts.Any(x => x.Name.ToLower() == discount.Name.ToLower()))
+                    {
+                        //create
+                        _unitOfWork.Discount.Add(discount);
+                    }
+                    else
+                    {
+                        Span<char> destination = stackalloc char[1];
+                        TempData["error"] = $"The \"{char.ToUpper(discount.Name[0]) + discount.Name.Substring(1)}\" discount already exists";
+                        return View(discount);
+                    }
                 }
                 else
                 {
-                    var productList = _unitOfWork.Product.GetAll().Where(x => x.DiscountId == discount.Id).ToList();
-                    if (productList.Count > 0)
+                    string toUpdateDiscount = _unitOfWork.Discount.GetAll().FirstOrDefault(x => x.Id == discount.Id).Name.ToLower();
+                    if (!discounts.Where(x => x.Name.ToLower() != toUpdateDiscount).Any(x => x.Name.ToLower() == discount.Name.ToLower()))
                     {
-                        foreach (Product product in productList)
+                        var productList = _unitOfWork.Product.GetAll().Where(x => x.DiscountId == discount.Id).ToList();
+                        if (productList.Count > 0)
                         {
-                            //update new discounted price
-                            decimal percentage = (decimal)discount.DiscountValue / 100m;
-                            decimal reduction = 1m - percentage;
-                            decimal grossDiscountedPrice = product.Price * reduction;
-                            product.DiscountedPrice = Math.Round(grossDiscountedPrice, 2, MidpointRounding.ToEven);
-                            _unitOfWork.Product.Update(product);
+                            foreach (Product product in productList)
+                            {
+                                //update new discounted price
+                                decimal percentage = (decimal)discount.DiscountValue / 100m;
+                                decimal reduction = 1m - percentage;
+                                decimal grossDiscountedPrice = product.Price * reduction;
+                                product.DiscountedPrice = Math.Round(grossDiscountedPrice, 2, MidpointRounding.ToEven);
+                                _unitOfWork.Product.Update(product);
+                            }
                         }
+                        _unitOfWork.Discount.Update(discount);
                     }
-                    _unitOfWork.Discount.Update(discount);
+                    else
+                    {
+                        Span<char> destination = stackalloc char[1];
+                        TempData["error"] = $"The \"{char.ToUpper(discount.Name[0]) + discount.Name.Substring(1)}\" discount already exists";
+                        return View(discount);
+                    }
                 }
                 _unitOfWork.Save();
                 TempData["success"] = "Discount created successfully";

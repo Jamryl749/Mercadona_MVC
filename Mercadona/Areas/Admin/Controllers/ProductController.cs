@@ -178,44 +178,67 @@ namespace Mercadona.Areas.Admin.Controllers
                     {
                         if (ModelState.IsValid)
                         {
-                            string wwwRootPath = _webHostEnvironment.WebRootPath;
-                            if (file != null)
+                            List<Product> products = new List<Product>();
+                            products = _unitOfWork.Product.GetAll().ToList();
+                            if (!products.Any(x => x.Name.ToLower() == productViewModel.Product.Name.ToLower()))
                             {
-                                string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                                string productPath = Path.Combine(wwwRootPath, @"img\product");
-
-                                if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                                if (file != null)
                                 {
-                                    //delete the old image
-                                    var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('\\'));
-                                    if (System.IO.File.Exists(oldImagePath))
+                                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                                    string productPath = Path.Combine(wwwRootPath, @"img\product");
+
+                                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
                                     {
-                                        System.IO.File.Delete(oldImagePath);
+                                        //delete the old image
+                                        var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('\\'));
+                                        if (System.IO.File.Exists(oldImagePath))
+                                        {
+                                            System.IO.File.Delete(oldImagePath);
+                                        }
                                     }
+
+                                    using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                                    {
+                                        file.CopyTo(filestream);
+                                    }
+
+
+                                    productViewModel.Product.ImageUrl = @"\img\product\" + filename;
+
                                 }
 
-                                using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                                if (productViewModel.Product.Id == 0)
                                 {
-                                    file.CopyTo(filestream);
+                                    _unitOfWork.Product.Add(productViewModel.Product);
+                                }
+                                else
+                                {
+                                    _unitOfWork.Product.Update(productViewModel.Product);
                                 }
 
-
-                                productViewModel.Product.ImageUrl = @"\img\product\" + filename;
-
-                            }
-
-                            if (productViewModel.Product.Id == 0)
-                            {
-                                _unitOfWork.Product.Add(productViewModel.Product);
+                                _unitOfWork.Save();
+                                TempData["success"] = "Product created successfully";
+                                return RedirectToAction("Index");
                             }
                             else
                             {
-                                _unitOfWork.Product.Update(productViewModel.Product);
-                            }
+                                productViewModel.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+                                {
+                                    Text = x.Name,
+                                    Value = x.Id.ToString()
+                                });
+                                productViewModel.DiscountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+                                {
+                                    Text = x.Name,
+                                    Value = x.Id.ToString()
+                                });
 
-                            _unitOfWork.Save();
-                            TempData["success"] = "Product created successfully";
-                            return RedirectToAction("Index");
+                                Span<char> destination = stackalloc char[1];
+                                TempData["error"] = $"The \"{char.ToUpper(productViewModel.Product.Name[0]) + productViewModel.Product.Name.Substring(1)}\" product already exists";
+                                
+                                return View(productViewModel);
+                            }
                         }
                         else
                         {

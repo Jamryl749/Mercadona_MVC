@@ -29,7 +29,15 @@ namespace Mercadona.DataAccess.Repository
         /// <param name="discount">A Discount class instance.</param>
         public void Update(Discount discount)
         {
-            _db.Discounts.Update(discount);
+            var discountFromDb = _db.Discounts.FirstOrDefault(x => x.Id == discount.Id);
+            if (discountFromDb != null)
+            {
+                discountFromDb.Id = discount.Id;
+                discountFromDb.Name = discount.Name;
+                discountFromDb.DiscountValue = discount.DiscountValue;
+                discountFromDb.StartDate = discount.StartDate;
+                discountFromDb.EndDate = discount.EndDate;
+            }
         }
     }
 }
