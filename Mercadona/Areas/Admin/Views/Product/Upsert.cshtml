@@ -75,9 +75,9 @@
                     </div>
                 </div>
                 <div class="mb-3 row p-1">
-                    <label asp-for="Product.ImageUrl" class="p-0"></label>
-                    <input type="file" name="file" class="form-control" />
-                    <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                    <label asp-for="@Model.Product.ImageUrl" class="p-0"></label>
+                    <input asp-for="@Model.Product.ImageUrl" type="file" name="file" class="form-control" accept="image/png, image/jpeg, image/jpeg" />
+                    <span class="text-danger">@Html.ValidationMessage("ImageUpload")</span>
                 </div>
                 <div class="row">
                     <div class="col-6">

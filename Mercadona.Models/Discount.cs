@@ -23,6 +23,7 @@ namespace Mercadona.Models
         [DisplayName("Discount Name")]
         [Required]
         [MaxLength(30)]
+        [MinLength(3)]
         public string Name { get; set; }
 
         /// <summary>

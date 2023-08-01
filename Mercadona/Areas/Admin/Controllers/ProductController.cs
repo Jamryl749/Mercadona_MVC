@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
+using System.Reflection.PortableExecutable;
 
 
 /// <summary>
@@ -89,50 +90,11 @@ namespace Mercadona.Areas.Admin.Controllers
         /// <param name="file">Image file associated with the product.</param>
         /// <returns>Redirects to index action after successful creation/update, otherwise returns the same view for displaying validation errors.</returns>
         [HttpPost, ActionName("Upsert")]
-        public IActionResult UpsertPost(ProductViewModel productViewModel, IFormFile? file)
+        public IActionResult UpsertPost(ProductViewModel productViewModel, IFormFile file)
         {
-            if (ModelState.IsValid)
+            if(file == null)
             {
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if (file != null)
-                {
-                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string productPath = Path.Combine(wwwRootPath, @"img\product");
-
-                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
-                    {
-                        //delete the old image
-                        var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('\\'));
-                        if (System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
-
-                    using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
-                    {
-                        file.CopyTo(filestream);
-                    }
-
-                    productViewModel.Product.ImageUrl = @"\img\product\" + filename;
-
-                }
-
-                if (productViewModel.Product.Id == 0)
-                {
-                    _unitOfWork.Product.Add(productViewModel.Product);
-                }
-                else
-                {
-                    _unitOfWork.Product.Update(productViewModel.Product);
-                }
-
-                _unitOfWork.Save();
-                TempData["success"] = "Product created successfully";
-                return RedirectToAction("Index");
-            }
-            else
-            {
+                ModelState.AddModelError("ImageUpload", "Please choose an image for the product.");
                 productViewModel.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -145,6 +107,134 @@ namespace Mercadona.Areas.Admin.Controllers
                 });
 
                 return View(productViewModel);
+            }
+            else
+            {
+                bool result = false;
+                Dictionary<string, List<byte[]>> _fileSignatures = new()
+                {
+                    { ".jpeg", new List<byte[]>
+                        {
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE0 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE2 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE3 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xEE },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xDB },
+                        }
+                    },
+                    { ".jpg", new List<byte[]>
+                        {
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE0 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE1 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xE8 },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xEE },
+                            new byte[] { 0xFF, 0xD8, 0xFF, 0xDB },
+                        }
+                    },
+                    { ".png", new List<byte[]> { new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A } } },
+                };
+
+                using (var reader = new BinaryReader(file.OpenReadStream()))
+                {
+                    var signatures = _fileSignatures.Values.SelectMany(x => x).ToList();  // flatten all signatures to single list
+                    var headerBytes = reader.ReadBytes(_fileSignatures.Max(m => m.Value.Max(n => n.Length)));
+                    result = signatures.Any(signature => headerBytes.Take(signature.Length).SequenceEqual(signature));
+                }
+                if(result == false)
+                {
+                    ModelState.AddModelError("ImageUpload", "Please choose a valid .jpg, .png .jpeg Image.");
+                    productViewModel.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    });
+                    productViewModel.DiscountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString()
+                    });
+
+                    return View(productViewModel);
+                }
+                else
+                {
+                    if(file.Length > 5 * 1024 * 1024)
+                    {
+                        ModelState.AddModelError("ImageUpload", "Maximum image size is 5Mb.");
+                        productViewModel.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+                        {
+                            Text = x.Name,
+                            Value = x.Id.ToString()
+                        });
+                        productViewModel.DiscountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+                        {
+                            Text = x.Name,
+                            Value = x.Id.ToString()
+                        });
+
+                        return View(productViewModel);
+                    }
+                    else
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            string wwwRootPath = _webHostEnvironment.WebRootPath;
+                            if (file != null)
+                            {
+                                string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                                string productPath = Path.Combine(wwwRootPath, @"img\product");
+
+                                if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                                {
+                                    //delete the old image
+                                    var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('\\'));
+                                    if (System.IO.File.Exists(oldImagePath))
+                                    {
+                                        System.IO.File.Delete(oldImagePath);
+                                    }
+                                }
+
+                                using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                                {
+                                    file.CopyTo(filestream);
+                                }
+
+
+                                productViewModel.Product.ImageUrl = @"\img\product\" + filename;
+
+                            }
+
+                            if (productViewModel.Product.Id == 0)
+                            {
+                                _unitOfWork.Product.Add(productViewModel.Product);
+                            }
+                            else
+                            {
+                                _unitOfWork.Product.Update(productViewModel.Product);
+                            }
+
+                            _unitOfWork.Save();
+                            TempData["success"] = "Product created successfully";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+
+                            productViewModel.CategoryList = _unitOfWork.Category.GetAll().Select(x => new SelectListItem
+                            {
+                                Text = x.Name,
+                                Value = x.Id.ToString()
+                            });
+                            productViewModel.DiscountList = _unitOfWork.Discount.GetAll().Select(x => new SelectListItem
+                            {
+                                Text = x.Name,
+                                Value = x.Id.ToString()
+                            });
+
+                            return View(productViewModel);
+                        }
+                    }
+                }
             }
         }
 

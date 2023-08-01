@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Routing;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,6 +38,7 @@ namespace Mercadona.Models
         /// </summary>
         [DisplayName("Product Name")]
         [MaxLength(30)]
+        [MinLength(3)]
         [Required]
         public string Name { get; set; }
 
@@ -51,9 +53,10 @@ namespace Mercadona.Models
         /// <summary>
         /// Gets or sets the Image Url of the product.
         /// </summary>
-        [ValidateNever]
+
         [DisplayName("Image Url")]
         [Required]
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
         /// <summary>

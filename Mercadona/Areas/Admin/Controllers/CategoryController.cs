@@ -60,14 +60,25 @@ namespace Mercadona.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreatePost(Category category)
         {
-            if (ModelState.IsValid)
+            List<Category> categories = new List<Category>();
+            categories = _unitOfWork.Category.GetAll().ToList();
+            if(!categories.Any(x => x.Name.ToLower() == category.Name.ToLower()))
             {
-                _unitOfWork.Category.Add(category);
-                _unitOfWork.Save();
-                TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _unitOfWork.Category.Add(category);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Category created successfully";
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                Span<char> destination = stackalloc char[1];
+                TempData["error"] = $"The \"{char.ToUpper(category.Name[0]) + category.Name.Substring(1)}\" category already exists";
+                return View();
+            }
         }
         /// <summary>
         /// Displays a form for editing an existing category.

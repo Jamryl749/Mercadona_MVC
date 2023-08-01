@@ -1,5 +1,6 @@
 ﻿using Mercadona.DataAccess.Repository.IRepository;
 using Mercadona.Models;
+using Mercadona.Models.ViewModels;
 using Mercadona.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,8 +54,19 @@ namespace Mercadona.Areas.Admin.Controllers
 
             if (id == null || id == 0)
             {
-                //create
-                return View(discount);
+                List<Discount> discounts = new List<Discount>();
+                discounts = _unitOfWork.Discount.GetAll().ToList();
+                if (!discounts.Any(x => x.Name.ToLower() == discount.Name.ToLower()))
+                {
+                    //create
+                    return View(discount);
+                }
+                else
+                {
+                    Span<char> destination = stackalloc char[1];
+                    TempData["error"] = $"The \"{char.ToUpper(discount.Name[0]) + discount.Name.Substring(1)}\" product already exists";
+                    return View(discount);
+                }
             }
             else
             {
