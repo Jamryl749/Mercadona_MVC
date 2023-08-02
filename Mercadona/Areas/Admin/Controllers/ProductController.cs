@@ -180,7 +180,10 @@ namespace Mercadona.Areas.Admin.Controllers
                         {
                             List<Product> products = new List<Product>();
                             products = _unitOfWork.Product.GetAll().ToList();
-                            if (!products.Any(x => x.Name.ToLower() == productViewModel.Product.Name.ToLower()))
+                            //Get the edited product name
+                            string toUpdateProduct = _unitOfWork.Product.GetAll().FirstOrDefault(x => x.Id == productViewModel.Product.Id).Name.ToLower();
+                            //Check if the new name already exists without returnin an error if the product name stays the same
+                            if (!products.Where(x => x.Name.ToLower() != toUpdateProduct).Any(x => x.Name.ToLower() == productViewModel.Product.Name.ToLower()))
                             {
                                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                                 if (file != null)
