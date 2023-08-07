@@ -37,7 +37,7 @@ namespace Mercadona.Models
         /// Gets or sets the Name of the product.
         /// </summary>
         [DisplayName("Product Name")]
-        [MaxLength(30)]
+        //[MaxLength(50)]
         [MinLength(3)]
         [Required]
         public string Name { get; set; }
@@ -57,7 +57,7 @@ namespace Mercadona.Models
         [DisplayName("Image Url")]
         [Required]
         [ValidateNever]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the Price of the product.
